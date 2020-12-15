@@ -1,5 +1,6 @@
-Q = document.querySelector.bind(document);
-QA = document.querySelectorAll.bind(document);
+const Q = document.querySelector.bind(document);
+const QA = document.querySelectorAll.bind(document);
+const QId = document.getElementById.bind(document);
 function text(msg) { return document.createTextNode(msg); }
 function clearNode(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 function toTimestamp(seconds) {
@@ -20,7 +21,7 @@ function toTimestamp(seconds) {
 
 var cur_track_idx = 0;
 function getActiveTranscriptTrackIdx() {
-    let textTracks = Q("video").textTracks;
+    let textTracks = QId("js-video-player").textTracks;
     if (!textTracks.length) return;
     for (let i=0; i < textTracks.length; i++) {
         if (textTracks[i].mode == "showing") {
@@ -30,10 +31,10 @@ function getActiveTranscriptTrackIdx() {
     }
     return cur_track_idx;
 }
-function getActiveTranscriptTrack() { return Q("video").textTracks[getActiveTranscriptTrackIdx()]; }
+function getActiveTranscriptTrack() { return QId("js-video-player").textTracks[getActiveTranscriptTrackIdx()]; }
 
 function getDefaultTranscriptTrackIdx() {
-  let textTracks = Q("video").textTracks;
+  let textTracks = QId("js-video-player").textTracks;
   return textTracks.length - 1;
 }
 

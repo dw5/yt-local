@@ -13,7 +13,7 @@ function load_sponsorblock(){
   const info_elem = Q('#skip_n');
   if (info_elem.innerText.length) return;  // already fetched
   const hash = sha256(data.video_id).substr(0,4);
-  const video_obj = Q("video");
+  const video_obj = QId("js-video-player");
   let url = `/https://sponsor.ajay.app/api/skipSegments/${hash}`;
   fetch(url)
       .then(response => response.json())

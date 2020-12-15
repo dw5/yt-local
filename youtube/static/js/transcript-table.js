@@ -1,7 +1,7 @@
 var details_tt, select_tt, table_tt;
 
 function renderCues() {
-  var selectedTrack = Q("video").textTracks[select_tt.selectedIndex];
+  var selectedTrack = QId("js-video-player").textTracks[select_tt.selectedIndex];
   let cuesList = [...selectedTrack.cues];
   var is_automatic = cuesList[0].text.startsWith(" \n");
 
@@ -38,7 +38,7 @@ function renderCues() {
     a.href = "javascript:;";  // TODO: replace this with ?t parameter
     if (title) a.title = title;
     a.addEventListener("click", (e) => {
-      Q("video").currentTime = startTime;
+      QId("js-video-player").currentTime = startTime;
     })
     return a;
   }
@@ -92,7 +92,7 @@ function renderCues() {
 }
 
 function loadCues() {
-  let textTracks = Q("video").textTracks;
+  let textTracks = QId("js-video-player").textTracks;
   let selectedTrack = textTracks[select_tt.selectedIndex];
 
   // See https://developer.mozilla.org/en-US/docs/Web/API/TextTrack/mode
@@ -120,7 +120,7 @@ function loadCues() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  let textTracks = Q("video").textTracks;
+  let textTracks = QId("js-video-player").textTracks;
   if (!textTracks.length) return;
 
   details_tt = Q("details#transcript-details");

@@ -2,7 +2,7 @@ function onKeyDown(e) {
     if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return false;
 
     // console.log(e);
-    let v = Q("video");
+    let v = QId("js-video-player");
     let c = e.key.toLowerCase();
     if (e.ctrlKey) return;
     else if (c == "k") {
@@ -37,7 +37,7 @@ function onKeyDown(e) {
         else tt.mode = "showing";
     }
     else if (c == "t") {
-        let ts = Math.floor(Q("video").currentTime);
+        let ts = Math.floor(QId("js-video-player").currentTime);
         copyTextToClipboard(`https://youtu.be/${data.video_id}?t=${ts}`);
     }
 }
