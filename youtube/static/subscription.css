@@ -232,6 +232,7 @@ hr {
     align-items: center;
     justify-items: center;
     justify-content: center;
+    grid-row-gap: 1rem;
 }
 .sidebar-title {
     grid-area: sidebar-title;
