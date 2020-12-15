@@ -5,23 +5,24 @@
         <div class="comment">
             <a class="author-avatar" href="{{ comment['author_url'] }}" title="{{ comment['author'] }}">
                 {% if include_avatar %}
-                    <img class="author-avatar-img" src="{{ comment['author_avatar'] }}">
+                    <img class="author-avatar-img" alt="{{ comment['author'] }}" src="{{ comment['author_avatar'] }}">
                 {% endif %}
             </a>
-            <address>
+            <address class="author-name">
                 <a class="author" href="{{ comment['author_url'] }}" title="{{ comment['author'] }}">{{ comment['author'] }}</a>
             </address>
             <a class="permalink" href="{{ comment['permalink'] }}" title="permalink">
-                <time datetime="">{{ comment['time_published'] }}</time>
+                <time datetime="2012-01-14T15:23:44+02:00">{{ comment['time_published'] }}</time>
             </a>
+
             {% if timestamp_links %}
-                <span class="text">{{ common_elements.text_runs(comment['text'])|timestamps|safe }}</span>
+                <span class="comment-text">{{ common_elements.text_runs(comment['text'])|timestamps|safe }}</span>
             {% else %}
-                <span class="text">{{ common_elements.text_runs(comment['text']) }}</span>
+                <span class="comment-text">{{ common_elements.text_runs(comment['text']) }}</span>
             {% endif %}
 
-            <span class="likes">{{ comment['likes_text'] if comment['like_count'] else ''}}</span>
-            <div class="bottom-row">
+            <span class="comment-likes">{{ comment['likes_text'] if comment['like_count'] else ''}}</span>
+            <div class="button-row">
                 {% if settings.use_comments_js and comment['reply_count'] %}
                     <details class="replies" src="{{ comment['replies_url'] }}">
                         <summary>{{ comment['view_replies_text'] }}</summary>
@@ -33,7 +34,6 @@
                 {% endif %}
             </div>
         </div>
-
     </div>
 {% endmacro %}
 
@@ -57,8 +57,5 @@
             <a class="page-button more-comments" href="{{ comments_info['more_comments_url'] }}">More comments</a>
         {% endif %}
     {% endif %}
+
 {% endmacro %}
-
-
-
-

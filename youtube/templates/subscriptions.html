@@ -7,78 +7,20 @@
 {% import "common_elements.html" as common_elements %}
 
 {% block style %}
-    main{
-        display:flex;
-        flex-direction: row;
-    }
-    .video-section{
-        flex-grow: 1;
-        padding-left: 10px;
-        padding-top: 10px;
-    }
-        .current-tag{
-            margin-bottom:10px;
-        }
-        .video-section .page-button-row{
-            justify-content: center;
-        }
-    .subscriptions-sidebar{
-        flex-basis: 300px;
-        background-color: var(--interface-color);
-        border-left: 2px;
-    }
-        .sidebar-links{
-            display:flex;
-            justify-content: space-between;
-            padding-left:10px;
-            padding-right: 10px;
-        }
-
-        .sidebar-list{
-            list-style: none;
-            padding-left:10px;
-            padding-right: 10px;
-        }
-            .sidebar-list-item{
-                display:flex;
-                justify-content: space-between;
-                margin-bottom: 5px;
-            }
-                .sub-refresh-list .sidebar-item-name{
-                    text-overflow: clip;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    max-width: 200px;
-                }
+    <link href="/youtube.com/static/subscription.css" rel="stylesheet">
 {% endblock style %}
 
 {% block main %}
-    <div class="video-section">
-        {% if current_tag %}
-            <h2 class="current-tag">{{ current_tag }}</h2>
-        {% endif %}
-        <nav class="item-grid">
-            {% for video_info in videos %}
-                {{ common_elements.item(video_info) }}
-            {% endfor %}
-        </nav>
-
-        <nav class="page-button-row">
-            {{ common_elements.page_buttons(num_pages, '/youtube.com/subscriptions', parameters_dictionary) }}
-        </nav>
-    </div>
 
     <div class="subscriptions-sidebar">
         <div class="sidebar-links">
-            <a href="/youtube.com/subscription_manager" class="sub-manager-link">Subscription Manager</a>
-            <form method="POST" class="refresh-all">
+            <a class="sidebar-title" href="/youtube.com/subscription_manager" class="sub-manager-link">Subscription Manager</a>
+            <form class="sidebar-action" method="POST" class="refresh-all">
                 <input type="submit" value="Check All">
                 <input type="hidden" name="action" value="refresh">
                 <input type="hidden" name="type" value="all">
             </form>
         </div>
-
-        <hr>
 
         <ol class="sidebar-list tags">
             {% if current_tag %}
@@ -105,7 +47,6 @@
         </ol>
 
         <hr>
-
         <ol class="sidebar-list sub-refresh-list">
             {% for subscription in subscription_list %}
                 <li class="sidebar-list-item {{ 'muted' if subscription['muted'] else '' }}">
@@ -119,7 +60,23 @@
                 </li>
             {% endfor %}
         </ol>
-
     </div>
+
+    {% if current_tag %}
+        <h2 class="current-tag">{{ current_tag }}</h2>
+    {% endif %}
+
+    <div class="video-container">
+        {% for video_info in videos %}
+            {{ common_elements.item(video_info) }}
+        {% endfor %}
+    </div>
+    <hr/>
+
+    <footer class="pagination-container">
+        <nav class="pagination-list">
+            {{ common_elements.page_buttons(num_pages, '/youtube.com/subscriptions', parameters_dictionary) }}
+        </nav>
+    </footer>
 
 {% endblock main %}

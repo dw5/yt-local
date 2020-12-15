@@ -1,18 +1,17 @@
-body{
-    --interface-color: #dadada;
-    --text-color: #222222;
-    --background-color: #bcbcbc;
-    --video-background-color: #dadada;
-}
-
-.comment .permalink{
-    color: #000000;
-}
-
-.setting-item{
-    background-color: #eeeeee;
-}
-
-.muted{
-    background-color: #888888;
+:root {
+    --background:        #2d3743;
+    --text:              #FFF;
+    --secondary-hover:   #73828c;
+    --secondary-focus:   rgba(115, 130, 140, 0.125);
+    --secondary-inverse: #FFF;
+    --secondary-background: #102027;
+    --link:              #22aaff;
+    --link-visited:      #7755ff;
+    --buttom:            #dcdcdb;
+    --buttom-text:       #415462;
+    --button-border:     #91918c;
+    --buttom-hover:      #BBB;
+    --search-text:       #FFF;
+    --time-background:   #000;
+    --time-text:         #FFF;
 }

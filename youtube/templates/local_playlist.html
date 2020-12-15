@@ -2,41 +2,23 @@
 {% extends "base.html" %}
 {% import "common_elements.html" as common_elements %}
 {% block style %}
-    main > *{
-        width: 800px;
-        margin: auto;
-    }
-
-    .playlist-metadata{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-        .playlist-title{
-        }
-        #playlist-remove-button{
-            align-self: center;
-            white-space: nowrap;
-        }
-        #results{
-            display: grid;
-            grid-auto-rows: 0fr;
-            grid-row-gap: 10px;
-        }
+    <link href="/youtube.com/static/local_playlist.css" rel="stylesheet">
 {% endblock style %}
 
 {% block main %}
     <div class="playlist-metadata">
-        <h2 class="playlist-title">{{ playlist_name }}</h2>
+        <h2 class="play-title">{{ playlist_name }}</h2>
         <input type="hidden" name="playlist_page" value="{{ playlist_name }}" form="playlist-edit">
-        <button type="submit" id="playlist-remove-button" name="action" value="remove" form="playlist-edit" formaction="">Remove from playlist</button>
+        <button class="play-action" type="submit" id="playlist-remove-button" name="action" value="remove" form="playlist-edit" formaction="">Remove from playlist</button>
     </div>
-    <div id="results">
+    <div id="results" class="video-container">
         {% for video_info in videos %}
             {{ common_elements.item(video_info) }}
         {% endfor %}
     </div>
-    <nav class="page-button-row">
-        {{ common_elements.page_buttons(num_pages, '/https://www.youtube.com/playlists/' + playlist_name, parameters_dictionary) }}
-    </nav>
+    <footer class="pagination-container">
+        <nav class="pagination-list">
+            {{ common_elements.page_buttons(num_pages, '/https://www.youtube.com/playlists/' + playlist_name, parameters_dictionary) }}
+        </nav>
+    </footer>
 {% endblock main %}

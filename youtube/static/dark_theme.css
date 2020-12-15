@@ -1,39 +1,17 @@
-body{
-    --interface-color: #333333;
-    --text-color: #cccccc;
-    --background-color: #000000;
-    --video-background-color: #080808;
+:root {
+    --background:        #121212;
+    --text:              #FFF;
+    --secondary-hover:   #73828c;
+    --secondary-focus:   #616161;
+    --secondary-inverse: #FFF;
+    --secondary-background: #424242;
+    --link:              #22aaff;
+    --link-visited:      #7755ff;
+    --buttom:            #dcdcdb;
+    --buttom-text:       #415462;
+    --button-border:     #91918c;
+    --buttom-hover:      #BBB;
+    --search-text:       #FFF;
+    --time-background:   #000;
+    --time-text:         #FFF;
 }
-
-a:link {
-    color: #22aaff;
-}
-
-a:visited {
-    color: #7755ff;
-}
-
-a:not([href]){
-    color: var(--text-color);
-}
-
-.comment .permalink{
-    color: #ffffff;
-}
-
-.setting-item{
-    background-color: #444444;
-}
-
-
-.muted{
-    background-color: #111111;
-    color: gray;
-}
-
-.muted a:link {
-    color: #10547f;
-}
-
-
-

@@ -19,16 +19,6 @@ body {
     margin-right: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6, div, button {
-    margin: 0;
-    padding: 0;
-}
-
-img {
-    width: 100%;
-    height: auto;
-}
-
 a:link {
     color: var(--link);
 }
@@ -111,8 +101,6 @@ header {
         "dropdown-label"
         "dropdown-content";
     grid-area: dropdown;
-    background: var(--background);
-    padding-right: 4rem;
     z-index: 1;
 }
 .dropdown-label {
@@ -164,83 +152,9 @@ label[for=options-toggle-cbox] {
     max-width: 80ch;
 }
 
-/* comments */
-.comments-area {
-    display: grid;
-    grid-row-gap: 0.5rem;
-}
-
-.comments-area textarea {
-    resize: vertical;
-}
-
-.video-metadata {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-column-gap: 0.5rem;
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas:
-        "video-metadata-thumbnail-box ."
-        "video-metadata-thumbnail-box ."
-        "video-metadata-thumbnail-box .";
-}
-
-.video-metadata > h2 {
-    font-size: 0.875rem;
-}
-
-.video-metadata-thumbnail-box {
-    grid-area: video-metadata-thumbnail-box;
-}
-
-.comment-form {
-    display: grid;
-    grid-row-gap: 0.5rem;
-}
-
-.post-comment-button {
-    justify-self: end;
-}
-
-.comments {
-    display: grid;
-    grid-row-gap: 0.5rem;
-}
-
-.comment {
-    display: grid;
-    grid-template-columns: repeat(3, auto) 3fr;
-    grid-template-rows: repeat(4, auto);
-    grid-column-gap: 0.4rem;
-    grid-template-areas:
-        "author-avatar author-name permalink permalink"
-        "author-avatar comment-text comment-text comment-text"
-        ". comment-likes comment-likes comment-likes"
-        ". button-row button-row button-row";
+.code-error {
     background: var(--secondary-background);
-}
-
-.author-avatar { grid-area: author-avatar; }
-.author-name { grid-area: author-name; }
-.permalink { grid-area: permalink; }
-.comment-text { grid-area: comment-text; }
-.comment-likes { grid-area: comment-likes; }
-.button-row { grid-area: button-row; }
-
-.more-comments {
-    justify-self: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: var(--secondary-background);
-    padding: 5px;
-
-    /* disable text selection */
-    -webkit-touch-callout: none;
-      -webkit-user-select: none;
-       -khtml-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
+    padding: 1rem;
 }
 
 .footer {

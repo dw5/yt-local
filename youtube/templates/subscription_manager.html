@@ -1,81 +1,7 @@
 {% set page_title = 'Subscription Manager' %}
 {% extends "base.html" %}
 {% block style %}
-    .import-export{
-        display: flex;
-        flex-direction: row;
-        padding-left: 10px;
-        padding-top: 10px;
-    }
-        .subscriptions-import-form{
-            background-color: var(--interface-color);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            max-width: 300px;
-            padding:10px;
-        }
-            .subscriptions-import-form h2{
-                font-size: 1.25rem;
-                margin-bottom: 10px;
-            }
-
-            .import-submit-button{
-                margin-top:15px;
-                align-self: flex-end;
-            }
-
-
-        .subscriptions-export-links{
-            margin: 0px 0px 0px 20px;
-            background-color: var(--interface-color);
-            list-style: none;
-            max-width: 300px;
-            padding:10px;
-        }
-
-    .sub-list-controls{
-        background-color: var(--interface-color);
-        padding:10px;
-    }
-
-
-    .tag-group-list{
-        list-style: none;
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 0px;
-    }
-        .tag-group{
-            border-style: solid;
-            margin-bottom: 10px;
-        }
-
-    .sub-list{
-        list-style: none;
-        padding:10px;
-        column-width: 300px;
-        column-gap: 40px;
-    }
-        .sub-list-item{
-            display:flex;
-            margin-bottom: 10px;
-            break-inside:avoid;
-        }
-        .sub-list-item:not(.muted){
-            background-color: var(--interface-color);
-        }
-            .tag-list{
-                margin-left:15px;
-                font-weight:bold;
-            }
-            .sub-list-item-name{
-                margin-left:15px;
-            }
-            .sub-list-checkbox{
-                height: 1.5em;
-                min-width: 1.5em;   // need min-width otherwise browser doesn't respect the width and squishes the checkbox down when there's too many tags
-            }
+    <link href="/youtube.com/static/subscription_manager.css" rel="stylesheet">
 {% endblock style %}
 
 
@@ -88,8 +14,6 @@
         </li>
     {% endfor %}
 {% endmacro %}
-
-
 
 {% block main %}
     <div class="import-export">

@@ -4,9 +4,13 @@
     {% extends "base.html" %}
 {% endif %}
 
+{% block style %}
+    <link href="/youtube.com/static/home.css" rel="stylesheet">
+{% endblock style %}
+
 {% block main %}
     {% if traceback %}
-        <div id="error-box">
+        <div class="code-error" id="error-box">
             <h1>500 Uncaught exception:</h1>
             <div class="code-box"><code>{{ traceback }}</code></div>
             <p>Please report this issue at <a href="https://github.com/user234683/youtube-local/issues" target="_blank">https://github.com/user234683/youtube-local/issues</a></p>
@@ -16,4 +20,3 @@
         <div id="error-message">{{ error_message }}</div>
     {% endif %}
 {% endblock %}
-
