@@ -84,9 +84,9 @@ Download the tarball under the Releases page and extract it. `cd` into the direc
 
 ## Usage
 
-Firstly, if you wish to run this in portable mode, create the empty file "settings.txt" in the program's main directory. If the file is there, settings and data will be stored in the same directory as the program. Otherwise, settings and data will be stored in `C:\Users\[your username]\.youtube-local` on Windows and `~/.youtube-local` on Linux/MacOS.
+Firstly, if you wish to run this in portable mode, create the empty file "settings.txt" in the program's main directory. If the file is there, settings and data will be stored in the same directory as the program. Otherwise, settings and data will be stored in `C:\Users\[your username]\.youtube-local` on Windows and `~/.youtube-local` on GNU+Linux/MacOS.
 
-To run the program on windows, open `run.bat`. On Linux/MacOS, run `python3 server.py`.
+To run the program on windows, open `run.bat`. On GNU+Linux/MacOS, run `python3 server.py`.
 
 
 Access youtube URLs by prefixing them with `http://localhost:8080/`, For instance, `http://localhost:8080/https://www.youtube.com/watch?v=vBgulDeV2RU`
