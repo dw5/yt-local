@@ -29,6 +29,10 @@ function onKeyDown(e) {
         if (document.fullscreen) document.exitFullscreen();
         else v.requestFullscreen();
     }
+    else if (c == "m") {
+        if (v.muted == false) {v.muted = true;}
+        else {v.muted = false;}
+    }
     else if (c == "c") {
         e.preventDefault();
         let tt = getActiveTranscriptTrack();
