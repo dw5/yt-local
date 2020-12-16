@@ -45,7 +45,7 @@
 
         {% if time_start != 0 %}
             <script>
-             document.querySelector('js-video-player').currentTime = {{ time_start|tojson }};
+             document.getElementById('js-video-player').currentTime = {{ time_start|tojson }};
             </script>
         {% endif %}
     {% endif %}
