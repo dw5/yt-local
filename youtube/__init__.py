@@ -49,7 +49,7 @@ def timestamp_replacement(match):
     for part in match.group(0).split(':'):
         time_seconds = 60*time_seconds + int(part)
     return (
-        '<a href="#" onclick="document.querySelector(\'video\').currentTime='
+        '<a href="#" onclick="document.getElementById(\'js-video-player\').currentTime='
         + str(time_seconds)
         + '">' + match.group(0)
         + '</a>'
