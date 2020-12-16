@@ -21,8 +21,6 @@ import re
 import sys
 
 
-
-
 def youtu_be(env, start_response):
     id = env['PATH_INFO'][1:]
     env['PATH_INFO'] = '/watch'
@@ -31,6 +29,7 @@ def youtu_be(env, start_response):
     else:
         env['QUERY_STRING'] += '&v=' + id
     yield from yt_app(env, start_response)
+
 
 def proxy_site(env, start_response, video=False):
     headers = {
@@ -79,18 +78,21 @@ def proxy_site(env, start_response, video=False):
 
     cleanup_func(response)
 
+
 def proxy_video(env, start_response):
     yield from proxy_site(env, start_response, video=True)
 
+
 site_handlers = {
-    'youtube.com':yt_app,
-    'youtu.be':youtu_be,
+    'youtube.com': yt_app,
+    'youtu.be': youtu_be,
     'ytimg.com': proxy_site,
     'yt3.ggpht.com': proxy_site,
     'lh3.googleusercontent.com': proxy_site,
     'sponsor.ajay.app': proxy_site,
     'googlevideo.com': proxy_video,
 }
+
 
 def split_url(url):
     ''' Split https://sub.example.com/foo/bar.html into ('sub.example.com', '/foo/bar.html')'''
@@ -103,10 +105,10 @@ def split_url(url):
     return match.group(1), match.group(2)
 
 
-
 def error_code(code, start_response):
     start_response(code, ())
     return code.encode()
+
 
 def site_dispatch(env, start_response):
     client_address = env['REMOTE_ADDR']
@@ -117,7 +119,7 @@ def site_dispatch(env, start_response):
         method = env['REQUEST_METHOD']
         path = env['PATH_INFO']
 
-        if method=="POST" and client_address not in ('127.0.0.1', '::1'):
+        if method == "POST" and client_address not in ('127.0.0.1', '::1'):
             yield error_code('403 Forbidden', start_response)
             return
 
@@ -159,11 +161,14 @@ def site_dispatch(env, start_response):
 class FilteredRequestLog:
     '''Don't log noisy thumbnail and avatar requests'''
     filter_re = re.compile(r'"GET /https://(i\.ytimg\.com/|www\.youtube\.com/data/subscription_thumbnails/|yt3\.ggpht\.com/|www\.youtube\.com/api/timedtext).*" 200')
+
     def __init__(self):
         pass
+
     def write(self, s):
         if not self.filter_re.search(s):
             sys.stderr.write(s)
+
 
 if __name__ == '__main__':
     if settings.allow_foreign_addresses:

@@ -13,15 +13,20 @@ import hashlib
 
 latest_version = sys.argv[1]
 
+
 def check(code):
     if code != 0:
         raise Exception('Got nonzero exit code from command')
+
+
 def check_subp(x):
     if x.returncode != 0:
         raise Exception('Got nonzero exit code from command')
 
+
 def log(line):
     print('[generate_release.py] ' + line)
+
 
 # https://stackoverflow.com/questions/7833715/python-deleting-certain-file-extensions
 def remove_files_with_extensions(path, extensions):
@@ -29,6 +34,7 @@ def remove_files_with_extensions(path, extensions):
         for file in files:
             if os.path.splitext(file)[1] in extensions:
                 os.remove(os.path.join(root, file))
+
 
 def download_if_not_exists(file_name, url, sha256=None):
     if not os.path.exists('./' + file_name):
@@ -45,6 +51,7 @@ def download_if_not_exists(file_name, url, sha256=None):
     else:
         log('Using existing ' + file_name)
 
+
 def wine_run_shell(command):
     if os.name == 'posix':
         check(os.system('wine ' + command.replace('\\', '/')))
@@ -53,11 +60,13 @@ def wine_run_shell(command):
     else:
         raise Exception('Unsupported OS')
 
+
 def wine_run(command_parts):
     if os.name == 'posix':
         command_parts = ['wine',] + command_parts
     if subprocess.run(command_parts).returncode != 0:
         raise Exception('Got nonzero exit code from command')
+
 
 # ---------- Get current release version, for later ----------
 log('Getting current release version')
@@ -100,7 +109,8 @@ visual_c_runtime_sha256 = '2549eb4d2ce4cf3a87425ea01940f74368bf1cda378ef8a8a1f1a
 download_if_not_exists('get-pip.py', get_pip_url)
 download_if_not_exists('python-dist-' + latest_version + '.zip', latest_dist_url)
 download_if_not_exists('vc15_(14.10.25017.0)_2017_x86.7z',
-    visual_c_runtime_url, sha256=visual_c_runtime_sha256)
+                       visual_c_runtime_url,
+                       sha256=visual_c_runtime_sha256)
 
 if os.path.exists('./python'):
     log('Removing old python distribution')

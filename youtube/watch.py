@@ -46,6 +46,7 @@ def get_video_sources(info, tor_bypass=False):
 
     return video_sources
 
+
 def make_caption_src(info, lang, auto=False, trans_lang=None):
     label = lang
     if auto:
@@ -59,6 +60,7 @@ def make_caption_src(info, lang, auto=False, trans_lang=None):
         'on': False,
     }
 
+
 def lang_in(lang, sequence):
     '''Tests if the language is in sequence, with e.g. en and en-US considered the same'''
     if lang is None:
@@ -66,12 +68,14 @@ def lang_in(lang, sequence):
     lang = lang[0:2]
     return lang in (l[0:2] for l in sequence)
 
+
 def lang_eq(lang1, lang2):
     '''Tests if two iso 639-1 codes are equal, with en and en-US considered the same.
        Just because the codes are equal does not mean the dialects are mutually intelligible, but this will have to do for now without a complex language model'''
     if lang1 is None or lang2 is None:
         return False
     return lang1[0:2] == lang2[0:2]
+
 
 def equiv_lang_in(lang, sequence):
     '''Extracts a language in sequence which is equivalent to lang.
@@ -82,6 +86,7 @@ def equiv_lang_in(lang, sequence):
         if l[0:2] == lang:
             return l
     return None
+
 
 def get_subtitle_sources(info):
     '''Returns these sources, ordered from least to most intelligible:
@@ -167,6 +172,7 @@ def get_ordered_music_list_attributes(music_list):
 
     return ordered_attributes
 
+
 def save_decrypt_cache():
     try:
         f = open(os.path.join(settings.data_dir, 'decrypt_function_cache.json'), 'w')
@@ -177,12 +183,14 @@ def save_decrypt_cache():
     f.write(json.dumps({'version': 1, 'decrypt_cache':decrypt_cache}, indent=4, sort_keys=True))
     f.close()
 
+
 watch_headers = (
     ('Accept', '*/*'),
     ('Accept-Language', 'en-US,en;q=0.5'),
     ('X-YouTube-Client-Name', '2'),
     ('X-YouTube-Client-Version', '2.20180830'),
 ) + util.mobile_ua
+
 
 def decrypt_signatures(info, video_id):
     '''return error string, or False if no errors'''
@@ -205,6 +213,7 @@ def decrypt_signatures(info, video_id):
         save_decrypt_cache()
     err = yt_data_extract.decrypt_signatures(info)
     return err
+
 
 def extract_info(video_id, use_invidious, playlist_id=None, index=None):
     # bpctr=9999999999 will bypass are-you-sure dialogs for controversial
@@ -255,7 +264,8 @@ def extract_info(video_id, use_invidious, playlist_id=None, index=None):
     if (info['hls_manifest_url']
         and (info['live'] or not info['formats'] or not info['urls_ready'])
     ):
-        manifest = util.fetch_url(info['hls_manifest_url'],
+        manifest = util.fetch_url(
+            info['hls_manifest_url'],
             debug_name='hls_manifest.m3u8',
             report_text='Fetched hls manifest'
         ).decode('utf-8')
@@ -276,7 +286,7 @@ def extract_info(video_id, use_invidious, playlist_id=None, index=None):
             and info['formats'] and info['formats'][0]['url']):
         try:
             response = util.head(info['formats'][0]['url'],
-                report_text='Checked for URL access')
+                                 report_text='Checked for URL access')
         except urllib3.exceptions.HTTPError:
             print('Error while checking for URL access:\n')
             traceback.print_exc()
@@ -292,6 +302,7 @@ def extract_info(video_id, use_invidious, playlist_id=None, index=None):
             print('Error: exceeded max redirects while checking video URL')
     return info
 
+
 def video_quality_string(format):
     if format['vcodec']:
         result =str(format['width'] or '?') + 'x' + str(format['height'] or '?')
@@ -303,6 +314,7 @@ def video_quality_string(format):
 
     return '?'
 
+
 def audio_quality_string(format):
     if format['acodec']:
         result = str(format['audio_bitrate'] or '?') + 'k'
@@ -313,6 +325,7 @@ def audio_quality_string(format):
         return 'video only'
 
     return '?'
+
 
 # from https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/utils.py
 def format_bytes(bytes):
@@ -330,6 +343,8 @@ def format_bytes(bytes):
 
 
 time_table = {'h': 3600, 'm': 60, 's': 1}
+
+
 @yt_app.route('/watch')
 @yt_app.route('/embed')
 @yt_app.route('/embed/<video_id>')
@@ -354,15 +369,15 @@ def get_watch_page(video_id=None):
     use_invidious = bool(int(request.args.get('use_invidious', '1')))
     tasks = (
         gevent.spawn(comments.video_comments, video_id, int(settings.default_comment_sorting), lc=lc ),
-        gevent.spawn(extract_info, video_id, use_invidious, playlist_id=playlist_id,
-            index=index)
+        gevent.spawn(extract_info, video_id, use_invidious,
+                     playlist_id=playlist_id, index=index)
     )
     gevent.joinall(tasks)
     util.check_gevent_exceptions(tasks[1])
     comments_info, info = tasks[0].value, tasks[1].value
 
     if info['error']:
-        return flask.render_template('error.html', error_message = info['error'])
+        return flask.render_template('error.html', error_message=info['error'])
 
     video_info = {
         "duration": util.seconds_to_timestamp(info["duration"] or 0),
@@ -408,7 +423,6 @@ def get_watch_page(video_id=None):
             url = info['formats'][0]['url']
             subdomain = url[0:url.find(".googlevideo.com")]
             f.write(subdomain + "\n")
-
 
     download_formats = []
 
@@ -458,9 +472,9 @@ def get_watch_page(video_id=None):
         })
 
     return flask.render_template('watch.html',
-        header_playlist_names   = local_playlist.get_playlist_names(),
-        uploader_channel_url    = ('/' + info['author_url']) if info['author_url'] else '',
-        time_published             = info['time_published'],
+        header_playlist_names = local_playlist.get_playlist_names(),
+        uploader_channel_url = ('/' + info['author_url']) if info['author_url'] else '',
+        time_published = info['time_published'],
         view_count    = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("view_count", None)),
         like_count    = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("like_count", None)),
         dislike_count = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("dislike_count", None)),
@@ -523,8 +537,9 @@ def get_transcript(caption_path):
         msg = ('Error retrieving captions: ' + str(e) + '\n\n'
             + 'The caption url may have expired.')
         print(msg)
-        return flask.Response(msg,
-            status = e.code,
+        return flask.Response(
+            msg,
+            status=e.code,
             mimetype='text/plain;charset=UTF-8')
 
     lines = captions.splitlines()
@@ -571,7 +586,4 @@ def get_transcript(caption_path):
             result += seg['begin'] + ' ' + seg['text'] + '\r\n'
 
     return flask.Response(result.encode('utf-8'),
-        mimetype='text/plain;charset=UTF-8')
-
-
-
+                          mimetype='text/plain;charset=UTF-8')

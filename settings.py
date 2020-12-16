@@ -235,18 +235,22 @@ def comment_string(comment):
         result += '# ' + line + '\n'
     return result
 
+
 def save_settings(settings_dict):
     with open(settings_file_path, 'w', encoding='utf-8') as file:
         for setting_name, setting_info in SETTINGS_INFO.items():
             file.write(comment_string(setting_info['comment']) + setting_name + ' = ' + repr(settings_dict[setting_name]) + '\n\n')
+
 
 def add_missing_settings(settings_dict):
     result = default_settings()
     result.update(settings_dict)
     return result
 
+
 def default_settings():
     return {key: setting_info['default'] for key, setting_info in SETTINGS_INFO.items()}
+
 
 def upgrade_to_2(settings_dict):
     '''Upgrade to settings version 2'''
@@ -260,6 +264,7 @@ def upgrade_to_2(settings_dict):
     new_settings['settings_version'] = 2
     return new_settings
 
+
 def upgrade_to_3(settings_dict):
     new_settings = settings_dict.copy()
     if 'route_tor' in settings_dict:
@@ -267,15 +272,15 @@ def upgrade_to_3(settings_dict):
     new_settings['settings_version'] = 3
     return new_settings
 
+
 upgrade_functions = {
     1: upgrade_to_2,
     2: upgrade_to_3,
 }
 
+
 def log_ignored_line(line_number, message):
     print("WARNING: Ignoring settings.txt line " + str(node.lineno) + " (" + message + ")")
-
-
 
 
 if os.path.isfile("settings.txt"):
@@ -356,16 +361,15 @@ else:
 globals().update(current_settings_dict)
 
 
-
 if route_tor:
     print("Tor routing is ON")
 else:
     print("Tor routing is OFF - your Youtube activity is NOT anonymous")
 
 
-
-
 hooks = {}
+
+
 def add_setting_changed_hook(setting, func):
     '''Called right before new settings take effect'''
     if setting in hooks:
@@ -382,11 +386,16 @@ def set_img_prefix(old_value=None, value=None):
         img_prefix = '/'
     else:
         img_prefix = ''
+
+
 set_img_prefix()
+
 add_setting_changed_hook('proxy_images', set_img_prefix)
 
 
 categories = ['network', 'interface', 'playback', 'other']
+
+
 def settings_page():
     if request.method == 'GET':
         settings_by_category = {categ: [] for categ in categories}
@@ -395,9 +404,10 @@ def settings_page():
             settings_by_category[categ].append(
                 (setting_name, setting_info, current_settings_dict[setting_name])
             )
-        return flask.render_template('settings.html',
-            categories = categories,
-            settings_by_category = settings_by_category,
+        return flask.render_template(
+            'settings.html',
+            categories=categories,
+            settings_by_category=settings_by_category,
         )
     elif request.method == 'POST':
         for key, value in request.values.items():
