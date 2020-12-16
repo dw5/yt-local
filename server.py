@@ -169,10 +169,14 @@ if __name__ == '__main__':
     if settings.allow_foreign_addresses:
         server = WSGIServer(('0.0.0.0', settings.port_number), site_dispatch,
                             log=FilteredRequestLog())
+        ip_server = '0.0.0.0'
     else:
         server = WSGIServer(('127.0.0.1', settings.port_number), site_dispatch,
                             log=FilteredRequestLog())
-    print('Started httpserver on port' , settings.port_number)
+        ip_server = '127.0.0.1'
+
+    print('Starting httpserver at http://%s:%s/' %
+          (ip_server, settings.port_number))
     server.serve_forever()
 
 # for uwsgi, gunicorn, etc.
