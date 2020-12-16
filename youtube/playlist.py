@@ -12,9 +12,6 @@ from flask import request
 import flask
 
 
-
-
-
 def playlist_ctoken(playlist_id, offset):
 
     offset = proto.uint(1, offset)
@@ -22,9 +19,9 @@ def playlist_ctoken(playlist_id, offset):
     offset = b'PT:' + proto.unpadded_b64encode(offset)
     offset = proto.string(15, offset)
 
-    continuation_info = proto.string( 3, proto.percent_b64encode(offset) )
+    continuation_info = proto.string(3, proto.percent_b64encode(offset))
 
-    playlist_id = proto.string(2, 'VL' + playlist_id )
+    playlist_id = proto.string(2, 'VL' + playlist_id)
     pointless_nest = proto.string(80226972, playlist_id + continuation_info)
 
     return base64.urlsafe_b64encode(pointless_nest).decode('ascii')
@@ -46,7 +43,8 @@ headers_1 = (
     ('X-YouTube-Client-Version', '2.20180614'),
 )
 
-def playlist_first_page(playlist_id, report_text = "Retrieved playlist"):
+
+def playlist_first_page(playlist_id, report_text="Retrieved playlist"):
     url = 'https://m.youtube.com/playlist?list=' + playlist_id + '&pbj=1'
     content = util.fetch_url(url, util.mobile_ua + headers_1, report_text=report_text, debug_name='playlist_first_page')
     content = json.loads(util.uppercase_escape(content.decode('utf-8')))
@@ -66,7 +64,9 @@ def get_videos(playlist_id, page):
         'X-YouTube-Client-Version': '2.20180508',
     }
 
-    content = util.fetch_url(url, headers, report_text="Retrieved playlist", debug_name='playlist_videos')
+    content = util.fetch_url(
+        url, headers,
+        report_text="Retrieved playlist", debug_name='playlist_videos')
 
     info = json.loads(util.uppercase_escape(content.decode('utf-8')))
     return info
@@ -94,7 +94,7 @@ def get_playlist_page():
 
     info = yt_data_extract.extract_playlist_info(this_page_json)
     if info['error']:
-        return flask.render_template('error.html', error_message = info['error'])
+        return flask.render_template('error.html', error_message=info['error'])
 
     if page != '1':
         info['metadata'] = yt_data_extract.extract_playlist_metadata(first_page_json)
@@ -114,11 +114,12 @@ def get_playlist_page():
     if video_count is None:
         video_count = 40
 
-    return flask.render_template('playlist.html',
-        header_playlist_names = local_playlist.get_playlist_names(),
-        video_list = info.get('items', []),
-        num_pages = math.ceil(video_count/20),
-        parameters_dictionary = request.args,
+    return flask.render_template(
+        'playlist.html',
+        header_playlist_names=local_playlist.get_playlist_names(),
+        video_list=info.get('items', []),
+        num_pages=math.ceil(video_count/20),
+        parameters_dictionary=request.args,
 
         **info['metadata']
     ).encode('utf-8')

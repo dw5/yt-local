@@ -25,12 +25,13 @@ from flask import request
 # *Old ASJN's continue to work, and start at the same comment even if new comments have been posted since
 # *The ASJN has no relation with any of the data in the response it came from
 
+
 def make_comment_ctoken(video_id, sort=0, offset=0, lc='', secret_key=''):
     video_id = proto.as_bytes(video_id)
     secret_key = proto.as_bytes(secret_key)
 
+    page_info = proto.string(4, video_id) + proto.uint(6, sort)
 
-    page_info = proto.string(4,video_id) + proto.uint(6, sort)
     offset_information = proto.nested(4, page_info) + proto.uint(5, offset)
     if secret_key:
         offset_information = proto.string(1, secret_key) + offset_information
@@ -39,17 +40,17 @@ def make_comment_ctoken(video_id, sort=0, offset=0, lc='', secret_key=''):
     if lc:
         page_params += proto.string(6, proto.percent_b64encode(proto.string(15, lc)))
 
-    result = proto.nested(2, page_params) + proto.uint(3,6) + proto.nested(6, offset_information)
+    result = proto.nested(2, page_params) + proto.uint(3, 6) + proto.nested(6, offset_information)
     return base64.urlsafe_b64encode(result).decode('ascii')
+
 
 def comment_replies_ctoken(video_id, comment_id, max_results=500):
 
     params = proto.string(2, comment_id) + proto.uint(9, max_results)
     params = proto.nested(3, params)
 
-    result = proto.nested(2, proto.string(2, video_id)) + proto.uint(3,6) + proto.nested(6, params)
+    result = proto.nested(2, proto.string(2, video_id)) + proto.uint(3, 6) + proto.nested(6, params)
     return base64.urlsafe_b64encode(result).decode('ascii')
-
 
 
 mobile_headers = {
@@ -59,6 +60,8 @@ mobile_headers = {
     'X-YouTube-Client-Name': '2',
     'X-YouTube-Client-Version': '2.20180823',
 }
+
+
 def request_comments(ctoken, replies=False):
     if replies: # let's make it use different urls for no reason despite all the data being encoded
         base_url = "https://m.youtube.com/watch_comment?action_get_comment_replies=1&ctoken="
@@ -66,7 +69,7 @@ def request_comments(ctoken, replies=False):
         base_url = "https://m.youtube.com/watch_comment?action_get_comments=1&ctoken="
     url = base_url + ctoken.replace("=", "%3D") + "&pbj=1"
 
-    for i in range(0,8):    # don't retry more than 8 times
+    for i in range(0, 8):    # don't retry more than 8 times
         content = util.fetch_url(url, headers=mobile_headers, report_text="Retrieved comments", debug_name='request_comments')
         if content[0:4] == b")]}'":             # random closing characters included at beginning of response for some reason
             content = content[4:]
@@ -81,11 +84,11 @@ def request_comments(ctoken, replies=False):
 
 
 def single_comment_ctoken(video_id, comment_id):
-    page_params = proto.string(2, video_id) + proto.string(6, proto.percent_b64encode(proto.string(15, comment_id)))
+    page_params = proto.string(2, video_id) + proto.string(
+        6, proto.percent_b64encode(proto.string(15, comment_id)))
 
-    result = proto.nested(2, page_params) + proto.uint(3,6)
+    result = proto.nested(2, page_params) + proto.uint(3, 6)
     return base64.urlsafe_b64encode(result).decode('ascii')
-
 
 
 def post_process_comments_info(comments_info):
@@ -95,15 +98,17 @@ def post_process_comments_info(comments_info):
         comment['author_avatar'] = concat_or_none(
             settings.img_prefix, comment['author_avatar'])
 
-        comment['permalink'] = concat_or_none(util.URL_ORIGIN, '/watch?v=',
+        comment['permalink'] = concat_or_none(
+            util.URL_ORIGIN, '/watch?v=',
             comments_info['video_id'], '&lc=', comment['id'])
 
-
         reply_count = comment['reply_count']
+
         if reply_count == 0:
             comment['replies_url'] = None
         else:
-            comment['replies_url'] = concat_or_none(util.URL_ORIGIN,
+            comment['replies_url'] = concat_or_none(
+                util.URL_ORIGIN,
                 '/comments?parent_id=', comment['id'],
                 '&video_id=', comments_info['video_id'])
 
@@ -122,18 +127,25 @@ def post_process_comments_info(comments_info):
 
     comments_info['include_avatars'] = settings.enable_comment_avatars
     if comments_info['ctoken']:
-        comments_info['more_comments_url'] = concat_or_none(util.URL_ORIGIN,
-            '/comments?ctoken=', comments_info['ctoken'])
+        comments_info['more_comments_url'] = concat_or_none(
+            util.URL_ORIGIN,
+            '/comments?ctoken=',
+            comments_info['ctoken']
+        )
 
     comments_info['page_number'] = page_number = str(int(comments_info['offset']/20) + 1)
 
     if not comments_info['is_replies']:
         comments_info['sort_text'] = 'top' if comments_info['sort'] == 0 else 'newest'
 
+    comments_info['video_url'] = concat_or_none(
+        util.URL_ORIGIN,
+        '/watch?v=',
+        comments_info['video_id']
+    )
 
-    comments_info['video_url'] = concat_or_none(util.URL_ORIGIN,
-        '/watch?v=', comments_info['video_id'])
-    comments_info['video_thumbnail'] = concat_or_none(settings.img_prefix, 'https://i.ytimg.com/vi/',
+    comments_info['video_thumbnail'] = concat_or_none(
+        settings.img_prefix, 'https://i.ytimg.com/vi/',
         comments_info['video_id'], '/mqdefault.jpg')
 
 
@@ -183,7 +195,6 @@ def video_comments(video_id, sort=0, offset=0, lc='', secret_key=''):
     return comments_info
 
 
-
 @yt_app.route('/comments')
 def get_comments_page():
     ctoken = request.args.get('ctoken', '')
@@ -195,7 +206,9 @@ def get_comments_page():
         ctoken = comment_replies_ctoken(video_id, parent_id)
         replies = True
 
-    comments_info = yt_data_extract.extract_comments_info(request_comments(ctoken, replies))
+    comments_info = yt_data_extract.extract_comments_info(
+        request_comments(ctoken, replies))
+
     post_process_comments_info(comments_info)
 
     if not replies:
@@ -203,8 +216,8 @@ def get_comments_page():
         other_sort_text = 'Sort by ' + ('newest' if comments_info['sort'] == 0 else 'top')
         comments_info['comment_links'] = [(other_sort_text, other_sort_url)]
 
-    return flask.render_template('comments_page.html',
-        comments_info = comments_info,
-        slim = request.args.get('slim', False)
+    return flask.render_template(
+        'comments_page.html',
+        comments_info=comments_info,
+        slim=request.args.get('slim', False)
     )
-

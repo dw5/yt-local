@@ -12,9 +12,8 @@ yt_app.url_map.strict_slashes = False
 # yt_app.jinja_env.lstrip_blocks = True
 
 
-
-
 yt_app.add_url_rule('/settings', 'settings_page', settings.settings_page, methods=['POST', 'GET'])
+
 
 @yt_app.route('/')
 def homepage():
@@ -27,12 +26,14 @@ theme_names = {
     2: 'dark_theme',
 }
 
+
 @yt_app.context_processor
 def inject_theme_preference():
     return {
         'theme_path': '/youtube.com/static/' + theme_names[settings.theme] + '.css',
         'settings': settings,
     }
+
 
 @yt_app.template_filter('commatize')
 def commatize(num):
@@ -41,6 +42,7 @@ def commatize(num):
     if isinstance(num, str):
         num = int(num)
     return '{:,}'.format(num)
+
 
 def timestamp_replacement(match):
     time_seconds = 0
@@ -53,10 +55,14 @@ def timestamp_replacement(match):
         + '</a>'
     )
 
+
 TIMESTAMP_RE = re.compile(r'\b(\d?\d:)?\d?\d:\d\d\b')
+
+
 @yt_app.template_filter('timestamps')
 def timestamps(text):
     return TIMESTAMP_RE.sub(timestamp_replacement, text)
+
 
 @yt_app.errorhandler(500)
 def error_page(e):
@@ -75,6 +81,7 @@ def error_page(e):
         return flask.render_template('error.html', error_message=error_message, slim=slim), 502
     return flask.render_template('error.html', traceback=traceback.format_exc(), slim=slim), 500
 
+
 font_choices = {
     0: 'initial',
     1: 'arial, "liberation sans", sans-serif',
@@ -83,11 +90,13 @@ font_choices = {
     4: 'tahoma, sans-serif',
 }
 
+
 @yt_app.route('/shared.css')
 def get_css():
     return flask.Response(
-        flask.render_template('shared.css',
-            font_family = font_choices[settings.font]
+        flask.render_template(
+            'shared.css',
+            font_family=font_choices[settings.font]
         ),
         mimetype='text/css',
     )

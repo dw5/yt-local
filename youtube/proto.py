@@ -2,6 +2,7 @@ from math import ceil
 import base64
 import io
 
+
 def byte(n):
     return bytes((n,))
 
@@ -19,7 +20,7 @@ def varint_encode(offset):
     for i in range(0, needed_bytes - 1):
         encoded_bytes[i] = (offset & 127) | 128  # 7 least significant bits
         offset = offset >> 7
-    encoded_bytes[-1] = offset & 127 # leave first bit as zero for last byte
+    encoded_bytes[-1] = offset & 127  # leave first bit as zero for last byte
 
     return bytes(encoded_bytes)
 
@@ -37,18 +38,18 @@ def varint_decode(encoded):
 def string(field_number, data):
     data = as_bytes(data)
     return _proto_field(2, field_number, varint_encode(len(data)) + data)
+
+
 nested = string
+
 
 def uint(field_number, value):
     return _proto_field(0, field_number, varint_encode(value))
 
 
-
-
 def _proto_field(wire_type, field_number, data):
     ''' See https://developers.google.com/protocol-buffers/docs/encoding#structure '''
-    return varint_encode( (field_number << 3) | wire_type) + data
-
+    return varint_encode((field_number << 3) | wire_type) + data
 
 
 def percent_b64encode(data):
@@ -57,6 +58,7 @@ def percent_b64encode(data):
 
 def unpadded_b64encode(data):
     return base64.urlsafe_b64encode(data).replace(b'=', b'')
+
 
 def as_bytes(value):
     if isinstance(value, str):
@@ -90,6 +92,7 @@ def read_group(data, end_sequence):
     data.seek(index + len(end_sequence))
     return data.original[start:index]
 
+
 def read_protobuf(data):
     data_original = data
     data = io.BytesIO(data)
@@ -118,12 +121,13 @@ def read_protobuf(data):
             raise Exception("Unknown wire type: " + str(wire_type) + ", Tag: " + bytes_to_hex(succinct_encode(tag)) + ", at position " + str(data.tell()))
         yield (wire_type, field_number, value)
 
+
 def parse(data):
     return {field_number: value for _, field_number, value in read_protobuf(data)}
+
 
 def b64_to_bytes(data):
     if isinstance(data, bytes):
         data = data.decode('ascii')
     data = data.replace("%3D", "=")
-    return base64.urlsafe_b64decode(data + "="*((4 - len(data)%4)%4) )
-
+    return base64.urlsafe_b64decode(data + "="*((4 - len(data)%4)%4))
