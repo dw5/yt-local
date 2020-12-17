@@ -26,8 +26,8 @@ function onKeyDown(e) {
     }
     else if (c == "f") {
         e.preventDefault();
-        if (document.fullscreenElement) document.exitFullscreen();
-        else v.requestFullscreen();
+        if (document.fullscreenElement && document.fullscreenElement.nodeName == 'VIDEO') {document.exitFullscreen();}
+        else {v.requestFullscreen()};
     }
     else if (c == "m") {
         if (v.muted == false) {v.muted = true;}
