@@ -1,4 +1,5 @@
 from youtube import util
+from .get_app_version import app_version
 import flask
 from flask import request
 import settings
@@ -32,6 +33,10 @@ def inject_theme_preference():
     return {
         'theme_path': '/youtube.com/static/' + theme_names[settings.theme] + '.css',
         'settings': settings,
+        # Detect version
+        'current_version': app_version()['version'],
+        'current_branch': app_version()['branch'],
+        'current_commit': app_version()['commit'],
     }
 
 

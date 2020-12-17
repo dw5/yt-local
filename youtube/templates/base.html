@@ -231,7 +231,11 @@
         </main>
         <footer class="footer">
             <p>This site is Free/Libre Software</p>
-            <p>Current version: 3304bab @ master</p>
+            {% if current_commit and current_version %}
+                <p>Current version: {{ current_version }}-{{ current_commit }} @ {{ current_branch }}</p>
+            {% else %}
+                <p>Current version: {{ current_version }}</p>
+            {% endif %}
         </footer>
     </body>
 
