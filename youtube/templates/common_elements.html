@@ -66,7 +66,7 @@
     </article>
 {% endmacro %}
 
-{% macro page_buttons(estimated_pages, url, parameters_dictionary) %}
+{% macro page_buttons(estimated_pages, url, parameters_dictionary, include_ends=false) %}
     {% set current_page = parameters_dictionary.get('page', 1)|int %}
     {% set parameters_dictionary = parameters_dictionary.to_dict() %}
     {% if current_page is le(5) %}
@@ -77,16 +77,25 @@
         {% set page_end = [current_page + 4, estimated_pages]|min %}
     {% endif %}
 
+    {% if include_ends and page_start is gt(1) %}
+        {% set _ = parameters_dictionary.__setitem__('page', 1) %}
+        <a class="page-link first-page-button" href="{{ url + '?' + parameters_dictionary|urlencode }}">{{ 1 }}</a>
+    {% endif %}
+
     {% for page in range(page_start, page_end+1) %}
         {% if page == current_page %}
             <div class="page-link is-current">{{ page }}</div>
         {% else %}
-            {# IMPORTANT: Jinja SUCKS #}
             {# https://stackoverflow.com/questions/36886650/how-to-add-a-new-entry-into-a-dictionary-object-while-using-jinja2 #}
             {% set _ = parameters_dictionary.__setitem__('page', page) %}
             <a class="page-link" href="{{ url + '?' + parameters_dictionary|urlencode }}">{{ page }}</a>
         {% endif %}
     {% endfor %}
+
+    {% if include_ends and page_end is lt(estimated_pages) %}
+        {% set _ = parameters_dictionary.__setitem__('page', estimated_pages) %}
+        <a class="page-link last-page-button" href="{{ url + '?' + parameters_dictionary|urlencode }}">{{ estimated_pages }}</a>
+    {% endif %}
 
 {% endmacro %}
 
