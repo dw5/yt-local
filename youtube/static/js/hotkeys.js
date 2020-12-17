@@ -26,7 +26,7 @@ function onKeyDown(e) {
     }
     else if (c == "f") {
         e.preventDefault();
-        if (document.fullscreen) document.exitFullscreen();
+        if (document.fullscreenElement) document.exitFullscreen();
         else v.requestFullscreen();
     }
     else if (c == "m") {
