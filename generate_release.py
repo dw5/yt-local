@@ -63,7 +63,7 @@ def wine_run_shell(command):
 
 def wine_run(command_parts):
     if os.name == 'posix':
-        command_parts = ['wine',] + command_parts
+        command_parts = ['wine', ] + command_parts
     if subprocess.run(command_parts).returncode != 0:
         raise Exception('Got nonzero exit code from command')
 
