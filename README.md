@@ -114,6 +114,12 @@ This project is licensed under the GNU Affero General Public License v3 (GNU AGP
 
 Permission is hereby granted to the youtube-dl project at [https://github.com/ytdl-org/youtube-dl](https://github.com/ytdl-org/youtube-dl) to relicense any portion of this software under the Unlicense, public domain, or whichever license is in use by youtube-dl at the time of relicensing, for the purpose of inclusion of said portion into youtube-dl. Relicensing permission is not granted for any purpose outside of direct inclusion into the [official repository](https://github.com/ytdl-org/youtube-dl) of youtube-dl. If inclusion happens during the process of a pull-request, relicensing happens at the moment the pull request is merged into youtube-dl; until that moment, any cloned repositories of youtube-dl which make use of this software are subject to the terms of the GNU AGPLv3.
 
+## Donate
+This project is completely free/Libre and will always be.
+
+#### Crypto:
+- **Bitcoin**: `1JrC3iqs3PP5Ge1m1vu7WE8LEf4S85eo7y`
+
 ## Similar projects
 - [youtube-dl](https://rg3.github.io/youtube-dl/), which this project was based off
 - [invidious](https://github.com/omarroth/invidious) Nearly identical to this project.
