@@ -195,6 +195,12 @@ def site_dispatch(env, start_response):
         # correct malformed query string with ? separators instead of &
         env['QUERY_STRING'] = env['QUERY_STRING'].replace('?', '&')
 
+        # Fix PATH_INFO for UWSGI
+        if 'REQUEST_URI' in env:
+            env['PATH_INFO'] = urllib.parse.unquote(
+                env['REQUEST_URI'].split('?')[0]
+            )
+
         method = env['REQUEST_METHOD']
         path = env['PATH_INFO']
 
