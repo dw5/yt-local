@@ -522,7 +522,11 @@ label[for=options-toggle-cbox] {
 .author-avatar { grid-area: author-avatar; }
 .author-name { grid-area: author-name; }
 .permalink { grid-area: permalink; }
-.comment-text { grid-area: comment-text; }
+.comment-text {
+    grid-area: comment-text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .comment-likes { grid-area: comment-likes; }
 .button-row { grid-area: button-row; }
 
