@@ -308,7 +308,7 @@ def extract_info(video_id, use_invidious, playlist_id=None, index=None):
 
 def video_quality_string(format):
     if format['vcodec']:
-        result =str(format['width'] or '?') + 'x' + str(format['height'] or '?')
+        result = str(format['width'] or '?') + 'x' + str(format['height'] or '?')
         if format['fps']:
             result += ' ' + str(format['fps']) + 'fps'
         return result
