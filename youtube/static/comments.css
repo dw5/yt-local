@@ -213,7 +213,7 @@ label[for=options-toggle-cbox] {
     grid-template-rows: repeat(4, auto);
     grid-column-gap: 0.4rem;
     grid-template-areas:
-        "author-avatar author-name permalink permalink"
+        "author-avatar author-name permalink ."
         "author-avatar comment-text comment-text comment-text"
         ". comment-likes comment-likes comment-likes"
         ". button-row button-row button-row";
