@@ -1,5 +1,4 @@
 import settings
-from youtube import yt_data_extract
 import socks
 import sockshandler
 import gzip
@@ -536,14 +535,6 @@ def add_extra_html_info(item):
         item['url'] = concat_or_none(URL_ORIGIN, '/playlist?list=', item['id'])
     elif item['type'] == 'channel':
         item['url'] = concat_or_none(URL_ORIGIN, "/channel/", item['id'])
-
-
-def parse_info_prepare_for_html(renderer, additional_info={}):
-    item = yt_data_extract.extract_item_info(renderer, additional_info)
-    prefix_urls(item)
-    add_extra_html_info(item)
-
-    return item
 
 
 def check_gevent_exceptions(*tasks):
