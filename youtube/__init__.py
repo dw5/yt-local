@@ -62,10 +62,26 @@ def timestamp_replacement(match):
     for part in match.group(0).split(':'):
         time_seconds = 60*time_seconds + int(part)
     return (
-        '<a href="#" onclick="document.getElementById(\'js-video-player\').currentTime='
-        + str(time_seconds)
-        + '">' + match.group(0)
-        + '</a>'
+        """
+          <a href="#" id="timestamp%s">%s</a>
+          <script>
+           // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3-or-Later
+           (function main() {
+             'use strict';
+             const player = document.getElementById('js-video-player');
+             const a = document.getElementById('timestamp%s');
+             a.addEventListener('click', function(event) {
+               player.currentTime = %s
+             });
+           }());
+           // @license-end
+          </script>
+        """ % (
+            str(time_seconds),
+            match.group(0),
+            str(time_seconds),
+            str(time_seconds)
+        )
     )
 
 
