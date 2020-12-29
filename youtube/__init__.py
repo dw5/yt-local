@@ -21,6 +21,14 @@ def homepage():
     return flask.render_template('home.html', title="Youtube local")
 
 
+@yt_app.route('/licenses')
+def licensepage():
+    return flask.render_template(
+        'licenses.html',
+        title="Licenses - YouTube Local"
+    )
+
+
 theme_names = {
     0: 'light_theme',
     1: 'gray_theme',

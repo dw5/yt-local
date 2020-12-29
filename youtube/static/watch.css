@@ -548,6 +548,12 @@ label[for=options-toggle-cbox] {
 
 .footer {
     grid-area: footer;
+    display: grid;
+    grid-template-columns: auto;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
 }
 
 .footer > p {
@@ -633,5 +639,16 @@ label[for=options-toggle-cbox] {
             "comments-area-outer side-videos"
             ".                   side-videos";
         grid-area: sc-info;
+    }
+
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-column-gap: 2rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 }
