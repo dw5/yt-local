@@ -1,6 +1,7 @@
 import youtube
 from youtube import yt_app
 from youtube import util, comments, local_playlist, yt_data_extract
+from youtube.util import time_utc_isoformat
 import settings
 
 from flask import request
@@ -491,6 +492,7 @@ def get_watch_page(video_id=None):
         header_playlist_names = local_playlist.get_playlist_names(),
         uploader_channel_url = ('/' + info['author_url']) if info['author_url'] else '',
         time_published = info['time_published'],
+        time_published_utc=time_utc_isoformat(info['time_published']),
         view_count    = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("view_count", None)),
         like_count    = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("like_count", None)),
         dislike_count = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("dislike_count", None)),

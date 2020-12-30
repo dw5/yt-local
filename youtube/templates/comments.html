@@ -12,7 +12,7 @@
                 <a class="author" href="{{ comment['author_url'] }}" title="{{ comment['author'] }}">{{ comment['author'] }}</a>
             </address>
             <a class="permalink" href="{{ comment['permalink'] }}" title="permalink">
-                <time datetime="2012-01-14T15:23:44+02:00">{{ comment['time_published'] }}</time>
+                <span>{{ comment['time_published'] }}</span>
             </a>
 
             {% if timestamp_links %}
@@ -24,7 +24,7 @@
             <span class="comment-likes">{{ comment['likes_text'] if comment['like_count'] else ''}}</span>
             <div class="button-row">
                 {% if settings.use_comments_js and comment['reply_count'] %}
-                    <details class="replies" src="{{ comment['replies_url'] }}">
+                    <details class="replies" data-src="{{ comment['replies_url'] }}">
                         <summary>{{ comment['view_replies_text'] }}</summary>
                         <a href="{{ comment['replies_url'] }}" class="replies-open-new-tab" target="_blank">Open in new tab</a>
                         <div class="comment_page">loading..</div>

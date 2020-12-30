@@ -71,7 +71,7 @@
 
             <address class="v-uploaded">Uploaded by <a href="{{ uploader_channel_url }}">{{ uploader }}</a></address>
             <span class="v-views">{{ view_count }} views</span>
-            <time class="v-published" datetime="$upload_date">Published on {{ time_published }}</time>
+            <time class="v-published" datetime="{{ time_published_utc }}">Published on {{ time_published }}</time>
             <span class="v-likes-dislikes">{{ like_count }} likes {{ dislike_count }} dislikes</span>
 
             <div class="external-player-controls">
