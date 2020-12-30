@@ -139,3 +139,4 @@ This project is completely free/Libre and will always be.
 - [Minitube](https://flavio.tordini.org/minitube), [github here](https://github.com/flaviotordini/minitube)
 - [toogles](https://github.com/mikecrittenden/toogles) (only embeds videos, doesn't use mp4)
 - [Yotter](https://github.com/ytorg/Yotter) Similar to this project and to invidious. Also supports Twitter
+- [YTLibre](https://libregit.org/heckyel/ytlibre.git) only extract video
