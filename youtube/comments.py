@@ -1,5 +1,8 @@
 from youtube import proto, util, yt_data_extract
-from youtube.util import concat_or_none
+from youtube.util import (
+    concat_or_none,
+    strip_non_ascii
+)
 from youtube import yt_app
 import settings
 
@@ -88,6 +91,7 @@ def single_comment_ctoken(video_id, comment_id):
 
 def post_process_comments_info(comments_info):
     for comment in comments_info['comments']:
+        comment['author'] = strip_non_ascii(comment['author'])
         comment['author_url'] = concat_or_none(
             '/', comment['author_url'])
         comment['author_avatar'] = concat_or_none(
@@ -113,7 +117,6 @@ def post_process_comments_info(comments_info):
             comment['view_replies_text'] = '1 reply'
         else:
             comment['view_replies_text'] = str(reply_count) + ' replies'
-
 
         if comment['like_count'] == 1:
             comment['likes_text'] = '1 like'

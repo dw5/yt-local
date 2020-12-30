@@ -520,7 +520,11 @@ label[for=options-toggle-cbox] {
 }
 
 .author-avatar { grid-area: author-avatar; }
-.author-name { grid-area: author-name; }
+.author-name {
+    grid-area: author-name;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .permalink { grid-area: permalink; }
 .comment-text {
     grid-area: comment-text;
