@@ -51,7 +51,7 @@
                         <div>{{ info['video_count']|commatize }} videos</div>
                     {% else %}
                         {% if info.get('time_published') %}
-                            <time>{{ info['time_published'] }}</time>
+                            <span>{{ info['time_published'] }}</span>
                         {% endif %}
                         {% if info.get('approx_view_count') %}
                             <div class="views">{{ info['approx_view_count'] }} views</div>
