@@ -84,7 +84,7 @@
 
     {% for page in range(page_start, page_end+1) %}
         {% if page == current_page %}
-            <div class="page-link is-current">{{ page }}</div>
+            <a class="page-link is-current">{{ page }}</a>
         {% else %}
             {# https://stackoverflow.com/questions/36886650/how-to-add-a-new-entry-into-a-dictionary-object-while-using-jinja2 #}
             {% set _ = parameters_dictionary.__setitem__('page', page) %}
