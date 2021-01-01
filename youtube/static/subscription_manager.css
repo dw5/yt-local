@@ -276,9 +276,10 @@ hr {
 }
 
 .main .pagination-container .pagination-list {
-    display: grid;
-    grid-auto-flow: column;
-    grid-column-gap: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .main .pagination-container .pagination-list .page-link {

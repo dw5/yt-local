@@ -440,6 +440,7 @@ hr {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .main .pagination-container .pagination-list .page-link {
