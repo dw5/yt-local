@@ -298,6 +298,8 @@ label[for=options-toggle-cbox] {
     background-color: var(--secondary-background);
     margin-top: 0.4rem;
     white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     word-wrap: break-word;
     padding: 5px;
 }
