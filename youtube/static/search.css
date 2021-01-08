@@ -302,6 +302,9 @@ hr {
 }
 
 .item-video.channel-item .thumbnail.channel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0px;
     text-align: center;
 }
