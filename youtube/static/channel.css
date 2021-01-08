@@ -321,6 +321,7 @@ hr {
     left: 0;
     top: 0;
     object-fit: cover;
+    background-color: var(--primary-background);
 }
 
 .length {
@@ -354,13 +355,6 @@ hr {
     top: 50%;
     transform: translate(-50%, -50%);
     text-transform: none;
-}
-
-.thumbnail-img {
-    margin: auto;
-    display: block;
-    max-height: 100%;
-    max-width: 100%;
 }
 
 .info-box {

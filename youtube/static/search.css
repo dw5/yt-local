@@ -351,6 +351,7 @@ hr {
     left: 0;
     top: 0;
     object-fit: cover;
+    background-color: var(--primary-background);
 }
 
 .title {

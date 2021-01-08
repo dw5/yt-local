@@ -23,11 +23,11 @@
                 <a class="thumbnail-box" href="{{ info['url'] }}" title="{{ info['title'] }}">
                     <div class="thumbnail {% if info['type'] == 'channel' %} channel {% endif %}">
                         {% if lazy_load %}
-                            <img class="thumbnail-img lazy" alt="thumbnail" data-src="{{ info['thumbnail'] }}">
+                            <img class="thumbnail-img lazy" alt="&#x20;" data-src="{{ info['thumbnail'] }}">
                         {% elif info['type'] == 'channel' %}
-                            <img class="thumbnail-img channel" alt="thumbnail" src="{{ info['thumbnail'] }}">
+                            <img class="thumbnail-img channel" alt="&#x20;" src="{{ info['thumbnail'] }}">
                         {% else %}
-                            <img class="thumbnail-img" alt="thumbnail" src="{{ info['thumbnail'] }}">
+                            <img class="thumbnail-img" alt="&#x20;" src="{{ info['thumbnail'] }}">
                         {% endif %}
 
                         {% if info['type'] != 'channel' %}
