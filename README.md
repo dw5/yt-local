@@ -114,7 +114,7 @@ In general, Tor video routing will be slower (for instance, moving around in the
 
 Pull requests and issues are welcome
 
-For coding guidelines and an overview of the software architecture, see the HACKING.md file.
+For coding guidelines and an overview of the software architecture, see the [HACKING.md](docs/HACKING.md) file.
 
 ## License
 
