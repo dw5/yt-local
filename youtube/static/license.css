@@ -188,13 +188,17 @@ label[for=options-toggle-cbox] {
     text-align: center;
 }
 
-.table th{
+.table th {
     background-color: var(--secondary-background);
     color: var(--text);
 }
 
-.table tbody tr:nth-child(even){
+.table tbody tr:nth-child(even) {
     background-color: var(--secondary-focus);
+}
+
+.table tbody tr:nth-child(2n+1) {
+    background-color: var(--primary-background);
 }
 
 .table thead tr th:nth-last-child(1) {
