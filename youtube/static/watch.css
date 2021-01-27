@@ -430,7 +430,7 @@ label[for=options-toggle-cbox] {
     left: 0;
     top: 0;
     object-fit: cover;
-    background-color: var(--primary-background);
+    background-color: var(--thumb-background);
 }
 
 .length {
