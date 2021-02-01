@@ -350,7 +350,7 @@ else:
 
         # upgrades
         latest_version = SETTINGS_INFO['settings_version']['default']
-        while current_settings_dict.get('settings_version',1) < latest_version:
+        while current_settings_dict.get('settings_version', 1) < latest_version:
             current_version = current_settings_dict.get('settings_version', 1)
             print('Upgrading settings.txt to version', current_version+1)
             upgrade_func = upgrade_functions[current_version]
