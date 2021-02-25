@@ -1,3 +1,5 @@
+[![builds.sr.ht status](https://builds.sr.ht/~heckyel/yt-local/commits/.build.yml.svg)](https://builds.sr.ht/~heckyel/yt-local/commits/.build.yml?)
+
 # yt-local
 
 Fork of [youtube-local](https://github.com/user234683/youtube-local)
