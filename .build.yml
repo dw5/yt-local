@@ -1,0 +1,12 @@
+image: debian/buster
+packages:
+  - python3-pip
+  - virtualenv
+tasks:
+  - test: |
+      cd yt-local
+      virtualenv -p python3 venv
+      source venv/bin/activate
+      python --version
+      pip install -r requirements-dev.txt
+      pytest
