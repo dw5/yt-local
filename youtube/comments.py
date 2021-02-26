@@ -107,7 +107,8 @@ def post_process_comments_info(comments_info):
                 print('Error setting ctoken value:')
                 print(err)
                 comment['replies_url'] = None
-            comment['replies_url'] = concat_or_none(util.URL_ORIGIN,
+            comment['replies_url'] = concat_or_none(
+                util.URL_ORIGIN,
                 '/comments?replies=1&ctoken=' + ctoken)
 
         if reply_count == 0:
@@ -116,7 +117,6 @@ def post_process_comments_info(comments_info):
             comment['view_replies_text'] = '1 reply'
         else:
             comment['view_replies_text'] = str(reply_count) + ' replies'
-
 
         if comment['like_count'] == 1:
             comment['likes_text'] = '1 like'
