@@ -289,7 +289,7 @@ label[for=options-toggle-cbox] {
 
     .footer {
         display: grid;
-        grid-template-columns: repeat(3, auto);
+        grid-template-columns: repeat(3, 1fr);
         grid-column-gap: 2rem;
         align-items: center;
         justify-content: center;
