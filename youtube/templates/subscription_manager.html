@@ -19,14 +19,24 @@
     <div class="import-export">
         <form class="subscriptions-import-form" enctype="multipart/form-data" action="/youtube.com/import_subscriptions" method="POST">
             <h2>Import subscriptions</h2>
-            <input type="file" id="subscriptions-import" accept="application/json, application/xml, text/x-opml" name="subscriptions_file">
-            <input type="submit" value="Import" class="import-submit-button">
+            <div class="subscriptions-import-options">
+                <input type="file" id="subscriptions-import" accept="application/json, application/xml, text/x-opml" name="subscriptions_file">
+                <input type="submit" value="Import">
+            </div>
         </form>
 
-        <!--<ul class="subscriptions-export-links">
-            <li><a href="/youtube.com/subscriptions.opml">Export subscriptions (OPML)</a></li>
-            <li><a href="/youtube.com/subscriptions.xml">Export subscriptions (RSS)</a></li>
-        </ul>-->
+        <form class="subscriptions-export-form" action="/youtube.com/export_subscriptions" method="POST">
+            <h2>Export subscriptions</h2>
+            <div class="subscriptions-export-options">
+                <select id="export-type" name="export_format" title="Export format">
+                    <option value="json">JSON</option>
+                    <option value="opml">OPML (RSS, no tags)</option>
+                </select>
+                <label for="include-muted">Include muted</label>
+                <input id="include-muted" type="checkbox" name="include_muted" checked>
+                <input type="submit" value="Export">
+            </div>
+        </form>
     </div>
 
     <hr>
