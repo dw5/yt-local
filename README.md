@@ -27,7 +27,7 @@ The Youtube API is not used, so no keys or anything are needed. It uses the same
 * Easily download videos or their audio
 * No ads
 * View comments
-* Works without Javascript
+* Javascript not required
 * Theater and non-theater mode
 * Subscriptions that are independent from Youtube
   * Can import subscriptions from Youtube
@@ -61,11 +61,12 @@ The Youtube API is not used, so no keys or anything are needed. It uses the same
 - [ ] Featured channels page
 - [ ] Channel comments
 - [x] Video transcript
-- [ ] Automatic Tor circuit change when blocked
+- [x] Automatic Tor circuit change when blocked
 - [x] Support &t parameter
 - [ ] Subscriptions: Option to mark what has been watched
 - [ ] Subscriptions: Option to filter videos based on keywords in title or description
 - [ ] Subscriptions: Delete old entries and thumbnails
+- [ ] Support for more sites, such as Vimeo, Dailymotion, LBRY, etc.
 
 ## Installing
 
@@ -141,8 +142,10 @@ This project is completely free/Libre and will always be.
 - **Bitcoin**: `1JrC3iqs3PP5Ge1m1vu7WE8LEf4S85eo7y`
 
 ## Similar projects
-- [youtube-dl](https://rg3.github.io/youtube-dl/), which this project was based off
 - [invidious](https://github.com/iv-org/invidious) Similar to this project, but also allows it to be hosted as a server to serve many users
+- [Yotter](https://github.com/ytorg/Yotter) Similar to this project and to invidious. Also supports Twitter
+- [FreeTube](https://github.com/FreeTubeApp/FreeTube) (Similar to this project, but is an electron app outside the browser)
+- [youtube-local](https://github.com/user234683/youtube-local) first project on which yt-local is based
 - [NewPipe](https://newpipe.schabi.org/) (app for android)
 - [mps-youtube](https://github.com/mps-youtube/mps-youtube) (terminal-only program)
 - [youtube-viewer](https://github.com/trizen/youtube-viewer)
@@ -150,5 +153,5 @@ This project is completely free/Libre and will always be.
 - [smtube](https://www.smtube.org/)
 - [Minitube](https://flavio.tordini.org/minitube), [github here](https://github.com/flaviotordini/minitube)
 - [toogles](https://github.com/mikecrittenden/toogles) (only embeds videos, doesn't use mp4)
-- [Yotter](https://github.com/ytorg/Yotter) Similar to this project and to invidious. Also supports Twitter
 - [YTLibre](https://git.sr.ht/~heckyel/ytlibre) only extract video
+- [youtube-dl](https://rg3.github.io/youtube-dl/), which this project was based off
