@@ -30,6 +30,20 @@ video {
     max-height: 480px;
 }
 
+/* plyr fix */
+.plyr:-moz-full-screen video {
+    max-height: initial;
+}
+.plyr:-webkit-full-screen video {
+    max-height: initial;
+}
+.plyr:-ms-fullscreen video {
+    max-height: initial;
+}
+.plyr:fullscreen video {
+    max-height: initial;
+}
+
 a:link {
     color: var(--link);
 }
