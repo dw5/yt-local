@@ -148,11 +148,15 @@ For security reasons, enabling this is not recommended.''',
         'category': 'playback',
     }),
 
-    ('use_video_hotkeys', {
-        'label': 'Enable video hotkeys',
-        'type': bool,
-        'default': True,
+    ('use_video_player', {
+        'type': int,
+        'default': 1,
         'comment': '',
+        'options': [
+            (0, 'Native'),
+            (1, 'Native with hotkeys'),
+            (2, 'Plyr'),
+        ],
         'category': 'interface',
     }),
 
