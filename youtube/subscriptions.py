@@ -464,7 +464,7 @@ def _get_channel_tab(channel_id, channel_status_name):
     except util.FetchError as e:
         if e.code == '429' and settings.route_tor:
             error_message = ('Error checking channel ' + channel_status_name
-                + ': Youtube blocked the request because the'
+                + ': YouTube blocked the request because the'
                 + ' Tor exit node is overutilized. Try getting a new exit node'
                 + ' by using the New Identity button in the Tor Browser.')
             if e.ip:
@@ -562,7 +562,7 @@ def _get_upstream_videos(channel_id):
         average_upload_period = int((time.time() - videos[4]['time_published'])/5) # equivalent to averaging the time between videos for the last 5 videos
 
     # calculate when to check next for auto checking
-    # add some quantization and randomness to make pattern analysis by Youtube slightly harder
+    # add some quantization and randomness to make pattern analysis by YouTube slightly harder
     quantized_upload_period = average_upload_period - (average_upload_period % (4*3600)) + 4*3600   # round up to nearest 4 hours
     randomized_upload_period = quantized_upload_period*(1 + secrets.randbelow(50)/50*0.5) # randomly between 1x and 1.5x
     next_check_delay = randomized_upload_period/10    # check at 10x the channel posting rate. might want to fine tune this number
@@ -725,7 +725,7 @@ def import_subscriptions():
         except (AssertionError, IndexError, defusedxml.ElementTree.ParseError) as e:
             return '400 Bad Request: Unable to read opml xml file, or the file is not the expected format', 400
     else:
-            return '400 Bad Request: Unsupported file format: ' + mime_type + '. Only subscription.json files (from Google Takeouts) and XML OPML files exported from Youtube\'s subscription manager page are supported', 400
+            return '400 Bad Request: Unsupported file format: ' + mime_type + '. Only subscription.json files (from Google Takeouts) and XML OPML files exported from YouTube\'s subscription manager page are supported', 400
 
     _subscribe(channels)
 

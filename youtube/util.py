@@ -311,7 +311,7 @@ def fetch_url(url, headers=(), timeout=15, report_text=None, data=None,
             if not use_tor:
                 raise FetchError('429', reason=response.reason, ip=ip)
 
-            print('Error: Youtube blocked the request because the Tor exit node is overutilized. Exit node IP address: %s' % ip)
+            print('Error: YouTube blocked the request because the Tor exit node is overutilized. Exit node IP address: %s' % ip)
 
             # get new identity
             error = tor_manager.new_identity(start_time)

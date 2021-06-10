@@ -82,7 +82,7 @@ def lang_eq(lang1, lang2):
 def equiv_lang_in(lang, sequence):
     '''Extracts a language in sequence which is equivalent to lang.
     e.g. if lang is en, extracts en-GB from sequence.
-    Necessary because if only a specific variant like en-GB is available, can't ask Youtube for simply en. Need to get the available variant.'''
+    Necessary because if only a specific variant like en-GB is available, can't ask YouTube for simply en. Need to get the available variant.'''
     lang = lang[0:2]
     for l in sequence:
         if l[0:2] == lang:

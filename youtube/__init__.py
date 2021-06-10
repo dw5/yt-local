@@ -18,7 +18,7 @@ yt_app.add_url_rule('/settings', 'settings_page', settings.settings_page, method
 
 @yt_app.route('/')
 def homepage():
-    return flask.render_template('home.html', title="Youtube local")
+    return flask.render_template('home.html', title="YouTube local")
 
 
 @yt_app.route('/licenses')
@@ -100,7 +100,7 @@ def error_page(e):
         and exc_info()[1].code == '429'
         and settings.route_tor
     ):
-        error_message = ('Error: Youtube blocked the request because the Tor'
+        error_message = ('Error: YouTube blocked the request because the Tor'
             ' exit node is overutilized. Try getting a new exit node by'
             ' using the New Identity button in the Tor Browser.')
         if exc_info()[1].error_message:

@@ -187,7 +187,7 @@ def video_comments(video_id, sort=0, offset=0, lc='', secret_key=''):
             return {}
     except util.FetchError as e:
         if e.code == '429' and settings.route_tor:
-            comments_info['error'] = 'Error: Youtube blocked the request because the Tor exit node is overutilized.'
+            comments_info['error'] = 'Error: YouTube blocked the request because the Tor exit node is overutilized.'
             if e.error_message:
                 comments_info['error'] += '\n\n' + e.error_message
             comments_info['error'] += '\n\nExit node IP address: %s' % e.ip

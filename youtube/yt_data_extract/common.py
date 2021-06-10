@@ -116,7 +116,7 @@ def _recover_urls(runs):
             run['text'] = url # youtube truncates the url text, use actual url instead
 
 def extract_str(node, default=None, recover_urls=False):
-    '''default is the value returned if the extraction fails. If recover_urls is true, will attempt to fix Youtube's truncation of url text (most prominently seen in descriptions)'''
+    '''default is the value returned if the extraction fails. If recover_urls is true, will attempt to fix YouTube's truncation of url text (most prominently seen in descriptions)'''
     if isinstance(node, str):
         return node
 

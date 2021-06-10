@@ -47,7 +47,7 @@ SETTINGS_INFO = collections.OrderedDict([
     ('allow_foreign_addresses', {
         'type': bool,
         'default': False,
-        'comment': '''This will allow others to connect to your Youtube Local instance as a website.
+        'comment': '''This will allow others to connect to your YouTube Local instance as a website.
 For security reasons, enabling this is not recommended.''',
         'hidden': True,
         'category': 'network',
@@ -385,7 +385,7 @@ globals().update(current_settings_dict)
 if route_tor:
     print("Tor routing is ON")
 else:
-    print("Tor routing is OFF - your Youtube activity is NOT anonymous")
+    print("Tor routing is OFF - your YouTube activity is NOT anonymous")
 
 
 hooks = {}

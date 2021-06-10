@@ -94,7 +94,7 @@ def proxy_site(env, start_response, video=False):
 
         content_length = int(dict(response_headers).get('Content-Length', 0))
         if response.status >= 400:
-            print('Error: Youtube returned "%d %s" while routing %s' % (
+            print('Error: YouTube returned "%d %s" while routing %s' % (
                 response.status, response.reason, url.split('?')[0]))
 
         total_received = 0
@@ -113,7 +113,7 @@ def proxy_site(env, start_response, video=False):
             content_part = response.read(32*8192)
             total_received += len(content_part)
             if not content_part:
-                # Sometimes Youtube closes the connection before sending all of
+                # Sometimes YouTube closes the connection before sending all of
                 # the content. Retry with a range request for the missing
                 # content. See
                 # https://github.com/user234683/youtube-local/issues/40
@@ -130,7 +130,7 @@ def proxy_site(env, start_response, video=False):
                     fail_byte = start + total_received
                     send_headers['Range'] = 'bytes=%d-%d' % (fail_byte, end)
                     print(
-                        'Warning: Youtube closed the connection before byte',
+                        'Warning: YouTube closed the connection before byte',
                         str(fail_byte) + '.', 'Expected', start+content_length,
                         'bytes.'
                     )
@@ -146,14 +146,14 @@ def proxy_site(env, start_response, video=False):
             yield content_part
         cleanup_func(response)
         if retry:
-            # Youtube will return 503 Service Unavailable if you do a bunch
+            # YouTube will return 503 Service Unavailable if you do a bunch
             # of range requests too quickly.
             time.sleep(1)
             continue
         else:
             break
     else: # no break
-        print('Error: Youtube closed the connection before',
+        print('Error: YouTube closed the connection before',
               'providing all content. Retried three times:', url.split('?')[0])
 
 
