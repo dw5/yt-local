@@ -47,7 +47,7 @@ SETTINGS_INFO = collections.OrderedDict([
     ('allow_foreign_addresses', {
         'type': bool,
         'default': False,
-        'comment': '''This will allow others to connect to your YouTube Local instance as a website.
+        'comment': '''This will allow others to connect to your YT Local instance as a website.
 For security reasons, enabling this is not recommended.''',
         'hidden': True,
         'category': 'network',
