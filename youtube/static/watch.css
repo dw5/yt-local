@@ -1,9 +1,3 @@
-html {
-    font-family: "liberation serif", "times new roman", calibri, carlito, serif;
-    background: var(--background);
-    color: var(--text);
-}
-
 body {
     display: grid;
     grid-gap: 20px;

@@ -113,8 +113,8 @@ def error_page(e):
 
 font_choices = {
     0: 'initial',
-    1: 'arial, "liberation sans", sans-serif',
-    2: '"liberation serif", "times new roman", calibri, carlito, serif',
+    1: '"liberation serif", "times new roman", calibri, carlito, serif',
+    2: 'arial, "liberation sans", sans-serif',
     3: 'verdana, sans-serif',
     4: 'tahoma, sans-serif',
 }
