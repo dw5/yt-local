@@ -4,9 +4,11 @@
     {% extends "base.html" %}
 {% endif %}
 
-{% block style %}
-    <link href="/youtube.com/static/home.css" rel="stylesheet">
-{% endblock style %}
+{% if traceback %}
+    {% block style %}
+        <link href="/youtube.com/static/home.css" rel="stylesheet">
+    {% endblock style %}
+{% endif %}
 
 {% block main %}
     {% if traceback %}
