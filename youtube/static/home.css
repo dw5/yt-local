@@ -193,6 +193,8 @@ label[for=options-toggle-cbox] {
         grid-area: dropdown;
         z-index: 1;
         position: absolute;
+        background: var(--background);
+        padding-right: 4rem;
     }
 
     .footer {
