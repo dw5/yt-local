@@ -257,6 +257,7 @@ label[for=options-toggle-cbox] {
         "v-uploaded v-views"
         "v-published v-likes-dislikes"
         "external-player-controls v-checkbox"
+        "v-direct-link v-direct-link"
         "v-download v-download"
         "v-description v-description"
         "v-music-list v-music-list"
@@ -286,6 +287,11 @@ label[for=options-toggle-cbox] {
 .v-checkbox {
     grid-area: v-checkbox;
     justify-self: end;
+}
+.v-direct-link {
+    grid-area: v-direct-link;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 .v-download { grid-area: v-download; }
 .v-download > ul.download-dropdown-content {
