@@ -390,7 +390,11 @@
          const player = new Plyr(document.getElementById('js-video-player'), {
              disableContextMenu: false,
              captions: {
+                 {% if settings.subtitles_mode > 0 %}
                  active: true,
+                 {% else %}
+                 active: false,
+                 {% endif %}
                  language: '{{ settings.subtitles_language }}'
              },
              controls: [
