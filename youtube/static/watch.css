@@ -351,6 +351,7 @@ label[for=options-toggle-cbox] {
     grid-template-columns: repeat(2, auto);
     justify-content: start;
     grid-column-gap: 0.5rem;
+    align-items: center;
 }
 
 /* playlist items */
