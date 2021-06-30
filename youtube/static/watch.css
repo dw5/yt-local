@@ -346,7 +346,6 @@ label[for=options-toggle-cbox] {
 .side-videos { grid-area: side-videos; }
 
 .side-videos .related-autoplay {
-    list-style: none;
     display: grid;
     grid-template-columns: repeat(2, auto);
     justify-content: start;

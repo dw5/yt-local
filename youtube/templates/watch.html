@@ -154,7 +154,7 @@
                     <div class="playlist-header">
                         <a href="{{ playlist['url'] }}" title="{{ playlist['title'] }}"><h3>{{ playlist['title'] }}</h3></a>
                         <ul class="playlist-metadata">
-                            <li>Autoplay: <input type="checkbox" id="autoplay-toggle"></li>
+                            <li><label for="playlist-autoplay-toggle">Autoplay: </label><input type="checkbox" id="playlist-autoplay-toggle"></li>
                             {% if playlist['current_index'] is none %}
                                 <li>[Error!]/{{ playlist['video_count'] }}</li>
                             {% else %}
@@ -214,7 +214,7 @@
                     {% endif %}
                 </div>
             {% elif settings.related_videos_mode != 0 %}
-                <li class="related-autoplay">Autoplay: <input type="checkbox" id="autoplay-toggle"></li>
+                <div class="related-autoplay"><label for="related-autoplay-toggle">Autoplay: </label><input type="checkbox" id="related-autoplay-toggle"></div>
             {% endif %}
 
             {% if settings.related_videos_mode != 0 or playlist %}
@@ -252,18 +252,24 @@
                      autoplayEnabled = Number(cookieValue);
                  }
 
-                 // check the checkbox if autoplay is on
-                 let checkbox = document.querySelector('#autoplay-toggle');
+                 // check the autoplay checkbox if autoplay is on
+                 {% if isPlaylist %}
+                 let PlaylistAutoplayCheck = document.getElementById('playlist-autoplay-toggle');
                  if(autoplayEnabled){
-                     checkbox.checked = true;
+                     PlaylistAutoplayCheck.checked = true;
                  }
+                 {% else %}
+                 let RelatedAutoplayCheck = document.getElementById('related-autoplay-toggle');
+                 if(autoplayEnabled){
+                     RelatedAutoplayCheck.checked = true;
+                 }
+                 {% endif %}
 
                  // listen for checkbox to turn autoplay on and off
                  let cookie = 'autoplay'
                  {% if isPlaylist %}
                  cookie += '_' + playlist_id;
-                 {% endif %}
-                 checkbox.addEventListener( 'change', function() {
+                 PlaylistAutoplayCheck.addEventListener( 'change', function() {
                      if(this.checked) {
                          autoplayEnabled = 1;
                          document.cookie = cookie + '=1; SameSite=Strict';
@@ -272,6 +278,17 @@
                          document.cookie = cookie + '=0; SameSite=Strict';
                      }
                  });
+                 {% else %}
+                 RelatedAutoplayCheck.addEventListener( 'change', function() {
+                     if(this.checked) {
+                         autoplayEnabled = 1;
+                         document.cookie = cookie + '=1; SameSite=Strict';
+                     } else {
+                         autoplayEnabled = 0;
+                         document.cookie = cookie + '=0; SameSite=Strict';
+                     }
+                 });
+                 {% endif %}
 
                  const vid = document.getElementById('js-video-player');
                  if(!playability_error){
