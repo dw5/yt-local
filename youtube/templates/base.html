@@ -20,8 +20,8 @@
             <nav class="home">
                 <a href="/youtube.com" id="home-link">YT Local</a>
             </nav>
-            <form class="form" id="site-search" action="/youtube.com/search">
-                <input type="search" name="query" class="search-box" value="{{ search_box_value }}"
+            <form class="form" id="site-search" action="/youtube.com/results">
+                <input type="search" name="search_query" class="search-box" value="{{ search_box_value }}"
                        {{ "autofocus" if request.path == "/" else "" }} placeholder="Type to search...">
                 <button type="submit" value="Search" class="search-button">Search</button>
                 <!-- options -->
