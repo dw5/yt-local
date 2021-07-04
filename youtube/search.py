@@ -63,7 +63,7 @@ def get_search_json(query, page, autocorrect, sort, filters):
 def get_search_page():
     query = request.args.get('search_query') or request.args.get('query')
     if query is None:
-        return flask.render_template('base.html', title='Search')
+        return flask.render_template('home.html', title='Search')
 
     page = request.args.get("page", "1")
     autocorrect = int(request.args.get("autocorrect", "1"))
