@@ -404,15 +404,22 @@
                 crossorigin="anonymous"></script>
         <script>
          // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
+         let captionsActive;
+         switch(true) {
+             case data.settings.subtitles_mode == 2:
+                 captionsActive = true;
+                 break;
+             case data.settings.subtitles_mode == 1 && data.has_manual_captions:
+                 captionsActive = true;
+                 break;
+             default:
+                 captionsActive = false;
+         }
          const player = new Plyr(document.getElementById('js-video-player'), {
              disableContextMenu: false,
              captions: {
-                 {% if settings.subtitles_mode > 0 %}
-                 active: true,
-                 {% else %}
-                 active: false,
-                 {% endif %}
-                 language: '{{ settings.subtitles_language }}'
+                 active: captionsActive,
+                 language: data.settings.subtitles_language,
              },
              controls: [
                  'play-large',
@@ -427,7 +434,8 @@
              ],
              iconUrl: "/youtube.com/static/modules/plyr/plyr.svg",
              blankVideo: "/youtube.com/static/modules/plyr/blank.webm",
-             debug: false
+             debug: false,
+             storage: {enabled: false},
          });
          // @license-end
         </script>
