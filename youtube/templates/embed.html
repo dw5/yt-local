@@ -6,6 +6,11 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; media-src 'self' https://*.googlevideo.com; {{ "img-src 'self' https://*.googleusercontent.com https://*.ggpht.com https://*.ytimg.com;" if not settings.proxy_images else "" }}"/>
         <title>{{ title }}</title>
         <link href="/youtube.com/static/favicon.ico" type="image/x-icon" rel="icon"/>
+        {% if settings.use_video_player == 2 %}
+            <!-- plyr -->
+            <link href="/youtube.com/static/modules/plyr/plyr.css" rel="stylesheet"/>
+            <!--/ plyr -->
+        {% endif %}
         <style>
          body {
              margin: 0rem;
@@ -15,10 +20,15 @@
              width: 100%;
              height: auto;
          }
+         /* Prevent this div from blocking right-click menu for video
+            e.g. Firefox playback speed options */
+         .plyr__poster {
+             display: none !important;
+         }
         </style>
     </head>
     <body>
-        <video controls autofocus onmouseleave="{{ title }}"
+        <video id="js-video-player" controls autofocus onmouseleave="{{ title }}"
                oncontextmenu="{{ title }}" onmouseenter="{{ title }}" title="{{ title }}">
             {% for video_source in video_sources %}
                 <source src="{{ video_source['src'] }}" type="{{ video_source['type'] }}">
@@ -31,5 +41,58 @@
                 {% endif %}
             {% endfor %}
         </video>
+        {% if js_data %}
+            <script>
+             // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3-or-Later
+             data = {{ js_data|tojson }};
+             // @license-end
+            </script>
+        {% endif %}
+        {% if settings.use_video_player == 2 %}
+            <!-- plyr -->
+            <script src="/youtube.com/static/modules/plyr/plyr.min.js"
+                    integrity="sha512-l6ZzdXpfMHRfifqaR79wbYCEWjLDMI9DnROvb+oLkKq6d7MGroGpMbI7HFpicvmAH/2aQO+vJhewq8rhysrImw=="
+                    crossorigin="anonymous"></script>
+            <script>
+             // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
+             let captionsActive;
+             switch(true) {
+                 case data.settings.subtitles_mode == 2:
+                     captionsActive = true;
+                     break;
+                 case data.settings.subtitles_mode == 1 && data.has_manual_captions:
+                     captionsActive = true;
+                     break;
+                 default:
+                     captionsActive = false;
+             }
+             const player = new Plyr(document.getElementById('js-video-player'), {
+                 disableContextMenu: false,
+                 captions: {
+                     active: captionsActive,
+                     language: data.settings.subtitles_language,
+                 },
+                 controls: [
+                     'play-large',
+                     'play',
+                     'progress',
+                     'current-time',
+                     'mute',
+                     'volume',
+                     'captions',
+                     'settings',
+                     'fullscreen'
+                 ],
+                 iconUrl: "/youtube.com/static/modules/plyr/plyr.svg",
+                 blankVideo: "/youtube.com/static/modules/plyr/blank.webm",
+                 debug: false,
+                 storage: {enabled: false},
+             });
+             // @license-end
+            </script>
+            <!-- /plyr -->
+        {% elif settings.use_video_player == 1 %}
+            <script src="/youtube.com/static/js/hotkeys.js"></script>
+        {% endif %}
     </body>
 </html>
