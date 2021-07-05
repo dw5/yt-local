@@ -9,6 +9,13 @@
         <!-- plyr -->
         <link href="/youtube.com/static/modules/plyr/plyr.css" rel="stylesheet"/>
         <!--/ plyr -->
+        <style>
+         /* Prevent this div from blocking right-click menu for video
+         e.g. Firefox playback speed options */
+         .plyr__poster {
+             display: none !important;
+         }
+        </style>
     {% endif %}
 {% endblock style %}
 
