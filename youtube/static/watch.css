@@ -230,7 +230,7 @@ label[for=options-toggle-cbox] {
     margin: 0 auto;
 
     display: grid;
-    grid-grap: 1px;
+    grid-gap: 1px;
     grid-template-columns: 1fr;
     grid-template-areas:
         "sc-video"
