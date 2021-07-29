@@ -194,7 +194,11 @@ class HTTPAsymmetricCookieProcessor(urllib.request.BaseHandler):
 
 class FetchError(Exception):
     def __init__(self, code, reason='', ip=None, error_message=None):
-        Exception.__init__(self, 'HTTP error during request: ' + code + ' ' + reason)
+        if error_message:
+            string = code + ' ' + reason + ': ' + error_message
+        else:
+            string = 'HTTP error during request: ' + code + ' ' + reason
+        Exception.__init__(self, string)
         self.code = code
         self.reason = reason
         self.ip = ip
