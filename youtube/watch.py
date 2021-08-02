@@ -27,7 +27,7 @@ except FileNotFoundError:
 def get_video_sources(info, tor_bypass=False):
     video_sources = []
     if (not settings.theater_mode) or (settings.route_tor == 2) or tor_bypass:
-        max_resolution = 360
+        max_resolution = 480
     else:
         max_resolution = settings.default_resolution
     for fmt in info['formats']:

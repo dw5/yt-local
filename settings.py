@@ -143,6 +143,7 @@ For security reasons, enabling this is not recommended.''',
         'comment': '',
         'options': [
             (360, '360p'),
+            (480, '480p'),
             (720, '720p'),
         ],
         'category': 'playback',
