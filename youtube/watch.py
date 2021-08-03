@@ -8,7 +8,6 @@ from flask import request
 import flask
 
 import json
-import html
 import gevent
 import os
 import math
@@ -39,8 +38,7 @@ def get_video_sources(info):
                 'width': fmt['width'],
             })
 
-    #### order the videos sources so the preferred resolution is first ###
-
+    # order the videos sources so the preferred resolution is first #
     video_sources.sort(key=lambda source: source['quality'], reverse=True)
 
     return video_sources
