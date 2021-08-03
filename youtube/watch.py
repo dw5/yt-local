@@ -24,12 +24,9 @@ except FileNotFoundError:
     decrypt_cache = {}
 
 
-def get_video_sources(info, tor_bypass=False):
+def get_video_sources(info):
     video_sources = []
-    if (not settings.theater_mode) or (settings.route_tor == 2) or tor_bypass:
-        max_resolution = 480
-    else:
-        max_resolution = settings.default_resolution
+    max_resolution = settings.default_resolution
     for fmt in info['formats']:
         if not all(fmt[attr] for attr in ('quality', 'width', 'ext', 'url')):
             continue
@@ -315,7 +312,6 @@ def extract_info(video_id, use_invidious, playlist_id=None, index=None):
     # check for 403. Unnecessary for tor video routing b/c ip address is same
     info['invidious_used'] = False
     info['invidious_reload_button'] = False
-    info['tor_bypass_used'] = False
     if (settings.route_tor == 1
             and info['formats'] and info['formats'][0]['url']):
         try:
@@ -329,7 +325,6 @@ def extract_info(video_id, use_invidious, playlist_id=None, index=None):
         if response.status == 403:
             print('Access denied (403) for video urls.')
             print('Routing video through Tor')
-            info['tor_bypass_used'] = True
             for fmt in info['formats']:
                 fmt['url'] += '&use_tor=1'
         elif 300 <= response.status < 400:
@@ -483,7 +478,7 @@ def get_watch_page(video_id=None):
             'codecs': codecs_string,
         })
 
-    video_sources = get_video_sources(info, tor_bypass=info['tor_bypass_used'])
+    video_sources = get_video_sources(info)
     video_height = yt_data_extract.deep_get(video_sources, 0, 'height', default=360)
     video_width = yt_data_extract.deep_get(video_sources, 0, 'width', default=640)
     # 1 second per pixel, or the actual video width
