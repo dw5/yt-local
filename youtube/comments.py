@@ -192,10 +192,10 @@ def video_comments(video_id, sort=0, offset=0, lc='', secret_key=''):
                 comments_info['error'] += '\n\n' + e.error_message
             comments_info['error'] += '\n\nExit node IP address: %s' % e.ip
         else:
-            comments_info['error'] = traceback.format_exc()
+            comments_info['error'] = 'YouTube blocked the request. IP address: %s' % e.ip
 
     except Exception as e:
-        comments_info['error'] = traceback.format_exc()
+        comments_info['error'] = 'YouTube blocked the request. IP address: %s' % e.ip
 
     if comments_info.get('error'):
         print('Error retrieving comments for ' + str(video_id) + ':\n' +
