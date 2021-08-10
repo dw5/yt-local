@@ -1,7 +1,6 @@
 let captionsActive;
 
 switch(true) {
-
 case data.settings.subtitles_mode == 2:
   captionsActive = true;
   break;
