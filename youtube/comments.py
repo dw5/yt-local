@@ -8,9 +8,6 @@ import settings
 
 import json
 import base64
-import urllib
-import re
-import traceback
 
 import flask
 from flask import request
@@ -34,7 +31,7 @@ def make_comment_ctoken(video_id, sort=0, offset=0, lc='', secret_key=''):
     secret_key = proto.as_bytes(secret_key)
 
 
-    page_info = proto.string(4,video_id) + proto.uint(6, sort)
+    page_info = proto.string(4, video_id) + proto.uint(6, sort)
     offset_information = proto.nested(4, page_info) + proto.uint(5, offset)
     if secret_key:
         offset_information = proto.string(1, secret_key) + offset_information
