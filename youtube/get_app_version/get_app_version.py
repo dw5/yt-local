@@ -24,28 +24,31 @@ def app_version():
             cmd, stdout=subprocess.PIPE, env=env).communicate()[0]
         return out
 
-    if call(["git", "branch"], stderr=STDOUT,
-            stdout=open(os.devnull, 'w')) != 0:
+    subst_list = {
+        "version": __version__,
+        "branch": None,
+        "commit": None
+    }
 
-        subst_list = {
-            "version": __version__,
-            "branch": None,
-            "commit": None
-        }
-
+    if os.system("command -v git > /dev/null 2>&1") != 0:
+        subst_list
     else:
-        # version
-        describe = minimal_env_cmd(["git", "describe", "--always"])
-        git_revision = describe.strip().decode('ascii')
-        # branch
-        branch = minimal_env_cmd(["git", "branch"])
-        git_branch = branch.strip().decode('ascii').replace('* ', '')
+        if call(["git", "branch"], stderr=STDOUT,
+                stdout=open(os.devnull, 'w')) != 0:
+            subst_list
+        else:
+            # version
+            describe = minimal_env_cmd(["git", "describe", "--always"])
+            git_revision = describe.strip().decode('ascii')
+            # branch
+            branch = minimal_env_cmd(["git", "branch"])
+            git_branch = branch.strip().decode('ascii').replace('* ', '')
 
-        subst_list = {
-            "version": __version__,
-            "branch": git_branch,
-            "commit": git_revision
-        }
+            subst_list = {
+                "version": __version__,
+                "branch": git_branch,
+                "commit": git_revision
+            }
 
     return subst_list
 
