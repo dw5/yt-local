@@ -104,17 +104,18 @@
     {% set parameters_dictionary = parameters_dictionary.to_dict() %}
 
     {% if current_page != 1 %}
-            {% set _ = parameters_dictionary.__setitem__('page', current_page - 1) %}
-            <a class="page-link previous-page" href="{{ url + '?' + parameters_dictionary|urlencode }}">Previous page</a>
+        {% set _ = parameters_dictionary.__setitem__('page', current_page - 1) %}
+        <a class="page-link previous-page" href="{{ url + '?' + parameters_dictionary|urlencode }}">Previous page</a>
     {% endif %}
 
     {% if not is_last_page %}
-            {% set _ = parameters_dictionary.__setitem__('page', current_page + 1) %}
-            <a class="page-link next-page" href="{{ url + '?' + parameters_dictionary|urlencode }}">Next page</a>
+        {% set _ = parameters_dictionary.__setitem__('page', current_page + 1) %}
+        <a class="page-link next-page" href="{{ url + '?' + parameters_dictionary|urlencode }}">Next page</a>
     {% endif %}
+{% endmacro %}
 
-    {% macro next_previous_ctoken_buttons(prev_ctoken, next_ctoken, url, parameters_dictionary) %}
-        {% set parameters_dictionary = parameters_dictionary.to_dict() %}
+{% macro next_previous_ctoken_buttons(prev_ctoken, next_ctoken, url, parameters_dictionary) %}
+    {% set parameters_dictionary = parameters_dictionary.to_dict() %}
 
     {% if prev_ctoken %}
         {% set _ = parameters_dictionary.__setitem__('ctoken', prev_ctoken) %}
@@ -125,5 +126,4 @@
         {% set _ = parameters_dictionary.__setitem__('ctoken', next_ctoken) %}
         <a class="page-link next-page" href="{{ url + '?' + parameters_dictionary|urlencode }}">Next page</a>
     {% endif %}
-    {% endmacro %}
 {% endmacro %}
