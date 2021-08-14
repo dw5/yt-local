@@ -51,45 +51,9 @@
         {% if settings.use_video_player == 2 %}
             <!-- plyr -->
             <script src="/youtube.com/static/modules/plyr/plyr.min.js"
-                    integrity="sha512-l6ZzdXpfMHRfifqaR79wbYCEWjLDMI9DnROvb+oLkKq6d7MGroGpMbI7HFpicvmAH/2aQO+vJhewq8rhysrImw=="
+                    integrity="sha512-LxSGuB4I2iAln3VLWi8t3RYhEks4/2rtcCw6kqiBghbqBJHXg5ikpeRxEOm0luiIuKDiqwNI3rsCXI/d+MPPAA==""
                     crossorigin="anonymous"></script>
-            <script>
-             // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
-             let captionsActive;
-             switch(true) {
-                 case data.settings.subtitles_mode == 2:
-                     captionsActive = true;
-                     break;
-                 case data.settings.subtitles_mode == 1 && data.has_manual_captions:
-                     captionsActive = true;
-                     break;
-                 default:
-                     captionsActive = false;
-             }
-             const player = new Plyr(document.getElementById('js-video-player'), {
-                 disableContextMenu: false,
-                 captions: {
-                     active: captionsActive,
-                     language: data.settings.subtitles_language,
-                 },
-                 controls: [
-                     'play-large',
-                     'play',
-                     'progress',
-                     'current-time',
-                     'mute',
-                     'volume',
-                     'captions',
-                     'settings',
-                     'fullscreen'
-                 ],
-                 iconUrl: "/youtube.com/static/modules/plyr/plyr.svg",
-                 blankVideo: "/youtube.com/static/modules/plyr/blank.webm",
-                 debug: false,
-                 storage: {enabled: false},
-             });
-             // @license-end
-            </script>
+            <script src="/youtube.com/static/js/plyr-start.js"></script>
             <!-- /plyr -->
         {% elif settings.use_video_player == 1 %}
             <script src="/youtube.com/static/js/hotkeys.js"></script>
