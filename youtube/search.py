@@ -108,5 +108,11 @@ def get_search_page():
 @yt_app.route('/opensearch.xml')
 def get_search_engine_xml():
     with open(os.path.join(settings.program_directory, 'youtube/opensearch.xml'), 'rb') as f:
-        content = f.read().replace(b'$port_number', str(settings.port_number).encode())
+        if settings.app_public:
+            main_url = '%s' % settings.app_url
+        else:
+            main_url = '%s:%s' % (settings.app_url, settings.port_number)
+        content = f.read().replace(
+            b'$main_url', str(main_url).encode()
+        )
         return flask.Response(content, mimetype='application/xml')

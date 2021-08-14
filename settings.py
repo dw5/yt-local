@@ -8,6 +8,20 @@ import flask
 from flask import request
 
 SETTINGS_INFO = collections.OrderedDict([
+    ('app_public', {
+        'type': bool,
+        'default': False,
+        'comment': '''Set app public mode, disabled by default''',
+        'hidden': True,
+        'category': 'network',
+    }),
+    ('app_url', {
+        'type': str,
+        'default': 'http://localhost',
+        'comment': '''Set URL of app 'http://localhost' by default''',
+        'hidden': True,
+        'category': 'network',
+    }),
     ('route_tor', {
         'type': int,
         'default': 0,
