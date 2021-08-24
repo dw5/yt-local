@@ -46,6 +46,7 @@ def get_video_sources(info):
         if fmt['acodec'] and fmt['vcodec']:
             source = {
                 'type': 'video/' + fmt['ext'],
+                'quality_string': short_video_quality_string(fmt),
             }
             source.update(fmt)
             uni_sources.append(source)
@@ -59,6 +60,7 @@ def get_video_sources(info):
             source = {
                 'type': 'audio/' + fmt['ext'],
                 'bitrate': fmt['audio_bitrate'],
+                'quality_string': audio_quality_string(fmt),
             }
             source.update(fmt)
             source['mime_codec'] = (source['type'] + '; codecs="'
@@ -68,6 +70,7 @@ def get_video_sources(info):
         elif all(fmt[attr] for attr in ('vcodec', 'quality', 'width')):
             source = {
                 'type': 'video/' + fmt['ext'],
+                'quality_string': short_video_quality_string(fmt),
             }
             source.update(fmt)
             source['mime_codec'] = (source['type'] + '; codecs="'
@@ -415,15 +418,24 @@ def video_quality_string(format):
     return '?'
 
 
-def audio_quality_string(format):
-    if format['acodec']:
-        result = str(format['audio_bitrate'] or '?') + 'k'
-        if format['audio_sample_rate']:
-            result += ' ' + str(format['audio_sample_rate']) + ' Hz'
-        return result
-    elif format['vcodec']:
-        return 'video only'
+def short_video_quality_string(fmt):
+    result = str(fmt['quality'] or '?') + 'p'
+    if fmt['fps']:
+        result += ' ' + str(fmt['fps']) + 'fps'
+    return result
 
+
+def audio_quality_string(fmt):
+    if fmt['acodec']:
+        if fmt['audio_bitrate']:
+            result = '%d' % fmt['audio_bitrate'] + 'k'
+        else:
+            result = '?k'
+        if fmt['audio_sample_rate']:
+            result += ' ' + '%.3G' % (fmt['audio_sample_rate']/1000) + 'kHz'
+        return result
+    elif fmt['vcodec']:
+        return 'video only'
     return '?'
 
 
@@ -551,13 +563,23 @@ def get_watch_page(video_id=None):
         })
 
     source_info = get_video_sources(info)
-    uni_idx = source_info['uni_idx']
+    uni_sources = source_info['uni_sources']
+    pair_sources = source_info['pair_sources']
+    uni_idx, pair_idx = source_info['uni_idx'], source_info['pair_idx']
     video_height = yt_data_extract.deep_get(source_info, 'uni_sources',
                                             uni_idx, 'height',
                                             default=360)
     video_width = yt_data_extract.deep_get(source_info, 'uni_sources',
                                            uni_idx, 'width',
                                            default=640)
+
+    pair_quality = yt_data_extract.deep_get(pair_sources, pair_idx, 0,
+                                            'quality')
+    uni_quality = yt_data_extract.deep_get(uni_sources, uni_idx, 'quality')
+    using_pair_sources = (
+        pair_sources and (not uni_sources or pair_quality != uni_quality)
+    )
+
     # 1 second per pixel, or the actual video width
     theater_video_target_width = max(640, info['duration'] or 0, video_width)
 
@@ -642,6 +664,7 @@ def get_watch_page(video_id=None):
         },
         font_family=youtube.font_choices[settings.font],
         **source_info,
+        using_pair_sources = using_pair_sources,
     )
 
 
