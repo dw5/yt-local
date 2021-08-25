@@ -119,6 +119,8 @@
                          var videoPaused = video.paused;
                          var videoSpeed = video.playbackRate;
                          var videoSource;
+                         if (avMerge)
+                             avMerge.close();
                          if (selection.type == 'uni'){
                              videoSource = data['uni_sources'][selection.index];
                              video.src = videoSource.url;
