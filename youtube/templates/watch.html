@@ -126,7 +126,7 @@
             <div class="external-player-controls">
                 <input class="speed" id="speed-control" type="text" title="Video speed">
                 <script src="/youtube.com/static/js/speedyplay.js"></script>
-                <select id="quality-select">
+                <select id="quality-select" autocomplete="off">
                     {% for src in uni_sources %}
                         <option value='{"type": "uni", "index": {{ loop.index0 }}}' {{ 'selected' if loop.index0 == uni_idx and not using_pair_sources else '' }} >{{ src['quality_string'] }}</option>
                     {% endfor %}
