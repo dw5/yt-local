@@ -151,8 +151,8 @@
             </div>
             <div>
                 <p>This site is Free/Libre Software</p>
-                {% if current_commit and current_version %}
-                    <p>Current version: {{ current_version }}{% if current_version != current_version %}-{{ current_commit }}{% endif %} @ {{ current_branch }}</p>
+                {% if current_commit != None %}
+                    <p>Current version: {{ current_commit }} @ {{ current_branch }}</p>
                 {% else %}
                     <p>Current version: {{ current_version }}</p>
                 {% endif %}
