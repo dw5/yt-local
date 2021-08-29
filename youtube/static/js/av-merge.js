@@ -114,6 +114,17 @@ AVMerge.prototype.videoEndOfStream = function() {
     }
     this.videoEndOfStreamCalled = true;
 }
+AVMerge.prototype.printDebuggingInfo = function() {
+    reportDebug('videoSource:', this.videoSource);
+    reportDebug('audioSource:', this.videoSource);
+    reportDebug('video sidx:', this.videoStream.sidx);
+    reportDebug('audio sidx:', this.audioStream.sidx);
+    reportDebug('video duration:', this.video.duration);
+    reportDebug('video current time:', this.video.currentTime);
+    reportDebug('mediaSource.readyState:', this.mediaSource.readyState);
+    reportDebug('videoEndOfStreamCalled', this.videoEndOfStreamCalled);
+    reportDebug('audioEndOfStreamCalled', this.audioEndOfStreamCalled);
+}
 
 function Stream(avMerge, source, startTime, avRatio) {
     this.avMerge = avMerge;
@@ -410,7 +421,7 @@ function reportError(...args){
     console.error(...args);
 }
 function reportDebug(...args){
-    console.log(...args);
+    console.debug(...args);
 }
 
 function byteArrayToIntegerLittleEndian(unsignedByteArray){
