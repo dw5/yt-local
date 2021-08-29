@@ -29,7 +29,7 @@
                 {% endif %}
             </span>
         </div>
-    {% elif (uni_sources.__len__() == 0 or live) and hls_formats.__len__() != 0 %}
+    {% elif (video_sources.__len__() == 0 or live) and hls_formats.__len__() != 0 %}
         <div class="live-url-choices">
             <span>Copy a url into your video player:</span>
             <ol>
@@ -41,9 +41,9 @@
     {% else %}
         <figure class="sc-video">
             <video id="js-video-player" playsinline controls>
-                {% if uni_sources %}
-                    <source src="{{ uni_sources[uni_idx]['url'] }}" type="{{ uni_sources[uni_idx]['type'] }}" data-res="{{ uni_sources[uni_idx]['quality'] }}">
-                {% endif %}
+                {% for video_source in video_sources %}
+                    <source src="{{ video_source['src'] }}" type="{{ video_source['type'] }}" data-res="{{ video_source['quality'] }}">
+                {% endfor %}
 
                 {% for source in subtitle_sources %}
                     {% if source['on'] %}
@@ -54,10 +54,6 @@
                 {% endfor %}
             </video>
         </figure>
-
-        {% if pair_sources and (not uni_sources or pair_sources[pair_idx][0]['quality'] != uni_sources[uni_idx]['quality']) %}
-            <script src="/youtube.com/static/js/av-merge.js"></script>
-        {% endif %}
 
         {% if time_start != 0 %}
             <script>

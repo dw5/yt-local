@@ -24,97 +24,25 @@ except FileNotFoundError:
 
 
 def get_video_sources(info):
-    '''return dict with organized sources: {
-        'uni_sources': [{}, ...],   # video and audio in one file
-        'uni_idx': int,     # default unified source index
-        'pair_sources': [({video}, {audio}), ...],
-        'pair_idx': int,    # default pair source index
-    }
-    '''
-    audio_sources = []
-    video_only_sources = []
-    uni_sources = []
-    pair_sources = []
-    target_resolution = settings.default_resolution
+    video_sources = []
+    max_resolution = settings.default_resolution
     for fmt in info['formats']:
-        if not all(fmt[attr] for attr in ('ext', 'url')):
+        if not all(fmt[attr] for attr in ('quality', 'width', 'ext', 'url')):
             continue
-        if fmt['ext'] != 'mp4': # temporary until webm support
-            continue
-
-        # unified source
-        if fmt['acodec'] and fmt['vcodec']:
-            source = {
+        if (fmt['acodec'] and fmt['vcodec']
+                and fmt['quality'] <= max_resolution):
+            video_sources.append({
+                'src': fmt['url'],
                 'type': 'video/' + fmt['ext'],
-            }
-            source.update(fmt)
-            uni_sources.append(source)
-            continue
+                'quality': fmt['quality'],
+                'height': fmt['height'],
+                'width': fmt['width'],
+            })
 
-        if not (fmt['init_range'] and fmt['index_range']):
-            continue
+    # order the videos sources so the preferred resolution is first #
+    video_sources.sort(key=lambda source: source['quality'], reverse=True)
 
-        # audio source
-        if fmt['acodec'] and not fmt['vcodec'] and fmt['audio_bitrate']:
-            source = {
-                'type': 'audio/' + fmt['ext'],
-                'bitrate': fmt['audio_bitrate'],
-            }
-            source.update(fmt)
-            source['mime_codec'] = (source['type'] + '; codecs="'
-                                    + source['acodec'] + '"')
-            audio_sources.append(source)
-        # video-only source, include audio source
-        elif all(fmt[attr] for attr in ('vcodec', 'quality', 'width')):
-            source = {
-                'type': 'video/' + fmt['ext'],
-            }
-            source.update(fmt)
-            source['mime_codec'] = (source['type'] + '; codecs="'
-                                    + source['vcodec'] + '"')
-            video_only_sources.append(source)
-
-    audio_sources.sort(key=lambda source: source['audio_bitrate'])
-    video_only_sources.sort(key=lambda src: src['quality'])
-    uni_sources.sort(key=lambda src: src['quality'])
-
-    for source in video_only_sources:
-        # choose an audio source to go with it
-        # 0.15 is semiarbitrary empirical constant to spread audio sources
-        # between 144p and 1080p. Use something better eventually.
-        target_audio_bitrate = source['quality']*source.get('fps', 30)/30*0.15
-        compat_audios = [a for a in audio_sources if a['ext'] == source['ext']]
-        if compat_audios:
-            closest_audio_source = compat_audios[0]
-            best_err = target_audio_bitrate - compat_audios[0]['audio_bitrate']
-            best_err = abs(best_err)
-            for audio_source in compat_audios[1:]:
-                err = abs(audio_source['audio_bitrate'] - target_audio_bitrate)
-                # once err gets worse we have passed the closest one
-                if err > best_err:
-                    break
-                best_err = err
-                closest_audio_source = audio_source
-            pair_sources.append((source, closest_audio_source))
-
-    uni_idx = 0 if uni_sources else None
-    for i, source in enumerate(uni_sources):
-        if source['quality'] > target_resolution:
-            break
-        uni_idx = i
-
-    pair_idx = 0 if pair_sources else None
-    for i, source_pair in enumerate(pair_sources):
-        if source_pair[0]['quality'] > target_resolution:
-            break
-        pair_idx = i
-
-    return {
-        'uni_sources': uni_sources,
-        'uni_idx': uni_idx,
-        'pair_sources': pair_sources,
-        'pair_idx': pair_idx,
-    }
+    return video_sources
 
 
 def make_caption_src(info, lang, auto=False, trans_lang=None):
@@ -510,11 +438,10 @@ def get_watch_page(video_id=None):
                 item['url'] += '&index=' + str(item['index'])
         info['playlist']['author_url'] = util.prefix_url(
             info['playlist']['author_url'])
-    if settings.img_prefix:
-        # Don't prefix hls_formats for now because the urls inside the manifest
-        # would need to be prefixed as well.
-        for fmt in info['formats']:
-            fmt['url'] = util.prefix_url(fmt['url'])
+    # Don't prefix hls_formats for now because the urls inside the manifest
+    # would need to be prefixed as well.
+    for fmt in info['formats']:
+        fmt['url'] = util.prefix_url(fmt['url'])
 
     # Add video title to end of url path so it has a filename other than just
     # "videoplayback" when downloaded
@@ -550,14 +477,9 @@ def get_watch_page(video_id=None):
             'codecs': codecs_string,
         })
 
-    source_info = get_video_sources(info)
-    uni_idx = source_info['uni_idx']
-    video_height = yt_data_extract.deep_get(source_info, 'uni_sources',
-                                            uni_idx, 'height',
-                                            default=360)
-    video_width = yt_data_extract.deep_get(source_info, 'uni_sources',
-                                           uni_idx, 'width',
-                                           default=640)
+    video_sources = get_video_sources(info)
+    video_height = yt_data_extract.deep_get(video_sources, 0, 'height', default=360)
+    video_width = yt_data_extract.deep_get(video_sources, 0, 'width', default=640)
     # 1 second per pixel, or the actual video width
     theater_video_target_width = max(640, info['duration'] or 0, video_width)
 
@@ -602,6 +524,7 @@ def get_watch_page(video_id=None):
         download_formats        = download_formats,
         other_downloads         = other_downloads,
         video_info              = json.dumps(video_info),
+        video_sources           = video_sources,
         hls_formats             = info['hls_formats'],
         subtitle_sources        = subtitle_sources,
         related                 = info['related_videos'],
@@ -634,14 +557,12 @@ def get_watch_page(video_id=None):
         time_start = time_start,
 
         js_data = {
-            'video_id': info['id'],
-            'video_duration': info['duration'],
+            'video_id': video_info['id'],
             'settings': settings.current_settings_dict,
             'has_manual_captions': any(s.get('on') for s in subtitle_sources),
-            **source_info,
         },
+        # for embed page
         font_family=youtube.font_choices[settings.font],
-        **source_info,
     )
 
 

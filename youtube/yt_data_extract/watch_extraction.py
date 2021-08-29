@@ -415,21 +415,13 @@ def _extract_formats(info, player_response):
         fmt['itag'] = itag
         fmt['ext'] = None
         fmt['audio_bitrate'] = None
-        fmt['bitrate'] = yt_fmt.get('bitrate')
         fmt['acodec'] = None
         fmt['vcodec'] = None
         fmt['width'] = yt_fmt.get('width')
         fmt['height'] = yt_fmt.get('height')
         fmt['file_size'] = yt_fmt.get('contentLength')
-        fmt['audio_sample_rate'] = extract_int(yt_fmt.get('audioSampleRate'))
-        fmt['duration_ms'] = yt_fmt.get('approxDurationMs')
+        fmt['audio_sample_rate'] = yt_fmt.get('audioSampleRate')
         fmt['fps'] = yt_fmt.get('fps')
-        fmt['init_range'] = yt_fmt.get('initRange')
-        fmt['index_range'] = yt_fmt.get('indexRange')
-        for key in ('init_range', 'index_range'):
-            if fmt[key]:
-                fmt[key]['start'] = int(fmt[key]['start'])
-                fmt[key]['end'] = int(fmt[key]['end'])
         update_format_with_type_info(fmt, yt_fmt)
         cipher = dict(urllib.parse.parse_qsl(multi_get(yt_fmt,
             'cipher', 'signatureCipher', default='')))
@@ -467,7 +459,7 @@ def extract_hls_formats(hls_manifest):
             if lines[i].startswith('#EXT-X-STREAM-INF'):
                 fmt = {'acodec': None, 'vcodec': None, 'height': None,
                     'width': None, 'fps': None, 'audio_bitrate': None,
-                    'itag': None, 'file_size': None, 'duration_ms': None,
+                    'itag': None, 'file_size': None,
                     'audio_sample_rate': None, 'url': None}
                 properties = lines[i].split(':')[1]
                 properties += ',' # make regex work for last key-value pair
