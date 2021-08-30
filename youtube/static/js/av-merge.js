@@ -19,13 +19,6 @@
 
 // TODO: Call abort to cancel in-progress appends?
 
-
-var avMerge;
-
-function avInitialize(...args){
-    avMerge = new AVMerge(...args);
-}
-
 function AVMerge(video, srcPair, startTime){
     this.videoSource = srcPair[0];
     this.audioSource = srcPair[1];
