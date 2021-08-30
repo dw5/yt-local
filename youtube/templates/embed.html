@@ -37,9 +37,9 @@
     <body>
         <video id="js-video-player" controls autofocus onmouseleave="{{ title }}"
                oncontextmenu="{{ title }}" onmouseenter="{{ title }}" title="{{ title }}">
-            {% for video_source in video_sources %}
-                <source src="{{ video_source['src'] }}" type="{{ video_source['type'] }}">
-            {% endfor %}
+            {% if uni_sources %}
+                <source src="{{ uni_sources[uni_idx]['url'] }}" type="{{ uni_sources[uni_idx]['type'] }}" data-res="{{ uni_sources[uni_idx]['quality'] }}">
+            {% endif %}
             {% for source in subtitle_sources %}
                 {% if source['on'] %}
                     <track label="{{ source['label'] }}" src="{{ source['url'] }}" kind="subtitles" srclang="{{ source['srclang'] }}" default>

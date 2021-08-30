@@ -120,5 +120,7 @@ const player = new Plyr(document.getElementById('js-video-player'), {
 
 // Hide the external quality selector
 window.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('quality-select').hidden = true;
+  var qs = document.getElementById('quality-select');
+  if (qs)
+    qs.hidden = true;
 });
