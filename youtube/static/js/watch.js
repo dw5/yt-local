@@ -1,4 +1,4 @@
-var video = document.getElementById('js-video-player');
+const video = document.getElementById('js-video-player');
 
 function changeQuality(selection) {
     var currentVideoTime = video.currentTime;
@@ -40,8 +40,7 @@ document.getElementById('quality-select').addEventListener(
 );
 
 // Set up video start time from &t parameter
-if (data.time_start != 0 && video)
-    video.currentTime = data.time_start;
+if (data.time_start != 0 && video) {video.currentTime = data.time_start};
 
 // External video speed control
 var speedInput = document.getElementById('speed-control');
