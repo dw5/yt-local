@@ -96,8 +96,7 @@ const player = new Plyr(document.getElementById('js-video-player'), {
     options: qualityOptions,
     forced: true,
     onChange: function(quality) {
-      if (quality == 'None')
-        return;
+      if (quality == 'None') {return;}
       if (quality.includes('(integrated)')) {
         for (var i=0; i < data['uni_sources'].length; i++) {
           if (data['uni_sources'][i].quality_string == quality) {
