@@ -46,6 +46,7 @@ The YouTube API is not used, so no keys or anything are needed. It uses the same
 * Optionally skip sponsored segments using [SponsorBlock](https://github.com/ajayyy/SponsorBlock)'s API
 * Custom video speeds
 * Video transcript
+* Supports all available video qualities: 144p through 2160p
 
 ## Planned features
 - [ ] Putting videos from subscriptions or local playlists into the related videos
@@ -54,7 +55,7 @@ The YouTube API is not used, so no keys or anything are needed. It uses the same
 - [ ] Auto-saving of local playlist videos
 - [ ] Import youtube playlist into a local playlist
 - [ ] Rearrange items of local playlist
-- [ ] Video qualities other than 360p and 720p by muxing video and audio
+- [x] Video qualities other than 360p and 720p by muxing video and audio
 - [ ] Corrected .m4a downloads
 - [x] Indicate if comments are disabled
 - [x] Indicate how many comments a video has
@@ -105,13 +106,21 @@ yt-local can be added as a search engine in firefox to make searching more conve
 
 In the settings page, set "Route Tor" to "On, except video" (the second option). Be sure to save the settings.
 
-Ensure Tor is listening for Socks5 connections on port 9150 (a simple way to accomplish this is by opening the Tor Browser Bundle and leaving it open). Your connections should now be routed through Tor.
+Ensure Tor is listening for Socks5 connections on port 9150. A simple way to accomplish this is by opening the Tor Browser Bundle and leaving it open. However, you will not be accessing the program (at https://localhost:8080) through the Tor Browser. You will use your regular browser for that. Rather, this is just a quick way to give the program access to Tor routing.
+
+### Standalone Tor
+
+If you don't want to waste system resources leaving the Tor Browser open in addition to your regular browser, you can configure standalone Tor to run instead using the following instructions.
+
+For Windows, to make standalone Tor run at startup, press Windows Key + R and type `shell:startup` to open the Startup folder. Create a new shortcut there. For the command of the shortcut, enter `"C:\[path-to-Tor-Browser-directory]\Tor\tor.exe" SOCKSPort 9150 ControlPort 9151`. You can then launch this shortcut to start it. Alternatively, if something isn't working, to see what's wrong, open `cmd.exe` and go to the directory `C:\[path-to-Tor-Browser-directory]\Tor`. Then run `tor SOCKSPort 9150 ControlPort 9151 | more`. The `more` part at the end is just to make sure any errors are displayed, to fix a bug in Windows cmd where tor doesn't display any output. You can stop tor in the task manager.
+
+For Debian/Ubuntu, you can `sudo apt install tor` to install the command line version of Tor, and then run `sudo systemctl start tor` to run it as a background service that will get started during boot as well. However, Tor on the command line uses the port 9050 by default (rather than the 9150 used by the Tor Browser). So you will need to change `Tor port` to 9050 and `Tor control port` to 9051 in the yt-local settings page. Additionally, you will need to enable the Tor control port by uncommenting the line `ControlPort 9051`, and setting `CookieAuthentication` to 0 in `/etc/tor/torrc`. If no Tor package is available for your distro, you can configure the `tor` binary located at `./Browser/TorBrowser/Tor/tor` inside the Tor Browser installation location to run at start time, or create a service to do it.
 
 ### Tor video routing
 
 If you wish to route the video through Tor, set "Route Tor" to "On, including video". Because this is bandwidth-intensive, you are strongly encouraged to donate to the [consortium of Tor node operators](https://torservers.net/donate.html). For instance, donations to [NoiseTor](https://noisetor.net/) go straight towards funding nodes. Using their numbers for bandwidth costs, together with an average of 485 kbit/sec for a diverse sample of videos, and assuming n hours of video watched per day, gives $0.03n/month. A $1/month donation will be a very generous amount to not only offset losses, but help keep the network healthy.
 
-In general, Tor video routing will be slower (for instance, moving around in the video is quite slow). I've never seen any signs that watch history in yt-local affects on-site YouTube recommendations. It's likely that requests to googlevideo are logged for some period of time, but are not integrated into YouTube's larger advertisement/recommendation systems, since those presumably depend more heavily on in-page tracking through Javascript rather than CDN requests to googlevideo.
+In general, Tor video routing will be slower (for instance, moving around in the video is quite slow). I've never seen any signs that watch history in yt-local affects on-site Youtube recommendations. It's likely that requests to googlevideo are logged for some period of time, but are not integrated into Youtube's larger advertisement/recommendation systems, since those presumably depend more heavily on in-page tracking through Javascript rather than CDN requests to googlevideo.
 
 ### Importing subscriptions
 
@@ -120,8 +129,14 @@ In general, Tor video routing will be slower (for instance, moving around in the
 3. Click on "All data included", then on "Deselect all", then select only "subscriptions" and click "OK".
 4. Click on "Next step" and then on "Create export".
 5. Click on the "Download" button after it appears.
-6. From the downloaded takeout zip extract the .json file. It is usually located under `YouTube and YouTube Music/subscriptions/subscriptions.json`
-7. Go to the subscriptions manager in yt-local. In the import area, select your .json file, then press import.
+6. From the downloaded takeout zip extract the .csv file. It is usually located under `YouTube and YouTube Music/subscriptions/subscriptions.csv`
+7. Go to the subscriptions manager in yt-local. In the import area, select your .csv file, then press import.
+
+Supported subscriptions import formats:
+- NewPipe subscriptions export JSON
+- Google Takeout CSV
+- Old Google Takeout JSON
+- OPML format from now-removed YouTube subscriptions manager
 
 ## Contributing
 
