@@ -22,7 +22,9 @@
         </div>
     </div>
 
+    <form id="playlist-remove" action="/youtube.com/edit_playlist" method="post" target="_self"></form>
     <div class="playlist-metadata" id="video-remove-container">
+        <button id="removePlayList" type="submit" name="action" value="remove_playlist" form="playlist-remove" formaction="">Remove playlist</button>
         <input type="hidden" name="playlist_page" value="{{ playlist_name }}" form="playlist-edit">
         <button class="play-action" type="submit" id="playlist-remove-button" name="action" value="remove" form="playlist-edit" formaction="">Remove from playlist</button>
     </div>
@@ -31,6 +33,12 @@
             {{ common_elements.item(video_info) }}
         {% endfor %}
     </div>
+    <script>
+     const deletePlayList = document.getElementById('removePlayList');
+     deletePlayList.addEventListener('click', (event) => {
+         return confirm('You are about to permanently delete {{ playlist_name }}\n\nOnce a playlist is permanently deleted, it cannot be recovered.')
+     });
+    </script>
     <footer class="pagination-container">
         <nav class="pagination-list">
             {{ common_elements.page_buttons(num_pages, '/https://www.youtube.com/playlists/' + playlist_name, parameters_dictionary) }}
