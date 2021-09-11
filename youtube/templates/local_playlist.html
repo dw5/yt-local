@@ -34,10 +34,12 @@
         {% endfor %}
     </div>
     <script>
+     // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
      const deletePlayList = document.getElementById('removePlayList');
      deletePlayList.addEventListener('click', (event) => {
          return confirm('You are about to permanently delete {{ playlist_name }}\n\nOnce a playlist is permanently deleted, it cannot be recovered.')
      });
+     // @license-end
     </script>
     <footer class="pagination-container">
         <nav class="pagination-list">
