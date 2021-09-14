@@ -275,8 +275,9 @@ def extract_item_info(item, additional_info={}):
         ['descriptionText'], ['descriptionSnippet'],
         ['detailedMetadataSnippets', 0, 'snippetText'],
     ))
-    info['thumbnail'] = normalize_url(multi_deep_get(item,
-        ['thumbnail', 'thumbnails', 0, 'url'],      # videos
+    info['thumbnail'] = normalize_url(multi_deep_get(
+        item,
+        ['thumbnail', 'thumbnails', 2, 'url'],      # videos
         ['thumbnails', 0, 'thumbnails', 0, 'url'],  # playlists
         ['thumbnailRenderer', 'showCustomThumbnailRenderer', 'thumbnail', 'thumbnails', 0, 'url'], # shows
     ))
