@@ -73,4 +73,4 @@ after, modified execute permissions:
 - disable: `doas rc-update del ytlocal`
 
 When yt-local is run with administrator privileges,
-the configuration file is stored in /root/.youtube-local
+the configuration file is stored in /root/.yt-local

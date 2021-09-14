@@ -390,8 +390,8 @@ if os.path.isfile("settings.txt"):
     data_dir = os.path.normpath('./data')
 else:
     print("Running in non-portable mode")
-    settings_dir = os.path.expanduser(os.path.normpath("~/.youtube-local"))
-    data_dir = os.path.expanduser(os.path.normpath("~/.youtube-local/data"))
+    settings_dir = os.path.expanduser(os.path.normpath("~/.yt-local"))
+    data_dir = os.path.expanduser(os.path.normpath("~/.yt-local/data"))
     if not os.path.exists(settings_dir):
         os.makedirs(settings_dir)
 
