@@ -31,11 +31,12 @@ if (data.using_pair_sources) {
 }
 
 // Quality selector
-document.getElementById('quality-select').addEventListener(
-    'change', function(e) {
-        changeQuality(JSON.parse(this.value))
-    }
-);
+const qs = document.getElementById('quality-select');
+if (qs) {
+  qs.addEventListener('change', function(e) {
+    changeQuality(JSON.parse(this.value))
+  });
+}
 
 // Set up video start time from &t parameter
 if (data.time_start != 0 && video) {video.currentTime = data.time_start};

@@ -118,11 +118,4 @@
     },
     settings: ['captions', 'quality', 'speed', 'loop'],
   });
-
-  // Hide the external quality selector
-  window.addEventListener('DOMContentLoaded', function(){
-    const qs = document.getElementById('quality-select');
-    if (qs)
-      qs.hidden = true;
-  });
 }());

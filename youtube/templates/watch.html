@@ -82,14 +82,16 @@
 
             <div class="external-player-controls">
                 <input class="speed" id="speed-control" type="text" title="Video speed">
-                <select id="quality-select" autocomplete="off">
-                    {% for src in uni_sources %}
-                        <option value='{"type": "uni", "index": {{ loop.index0 }}}' {{ 'selected' if loop.index0 == uni_idx and not using_pair_sources else '' }} >{{ src['quality_string'] }}</option>
-                    {% endfor %}
-                    {% for src_pair in pair_sources %}
-                        <option value='{"type": "pair", "index": {{ loop.index0}}}' {{ 'selected' if loop.index0 == pair_idx and using_pair_sources else '' }} >{{ src_pair['quality_string'] }}</option>
-                    {% endfor %}
-                </select>
+                {% if settings.use_video_player != 2 %}
+                    <select id="quality-select" autocomplete="off">
+                        {% for src in uni_sources %}
+                            <option value='{"type": "uni", "index": {{ loop.index0 }}}' {{ 'selected' if loop.index0 == uni_idx and not using_pair_sources else '' }} >{{ src['quality_string'] }}</option>
+                        {% endfor %}
+                        {% for src_pair in pair_sources %}
+                            <option value='{"type": "pair", "index": {{ loop.index0}}}' {{ 'selected' if loop.index0 == pair_idx and using_pair_sources else '' }} >{{ src_pair['quality_string'] }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
             </div>
             <input class="v-checkbox" name="video_info_list" value="{{ video_info }}" form="playlist-edit" type="checkbox">
 
