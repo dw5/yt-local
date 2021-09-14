@@ -77,22 +77,22 @@ if describe_result.returncode != 0:
 release_tag = describe_result.stdout.strip().decode('ascii')
 
 
-# ----------- Make copy of youtube-local files using git -----------
+# ----------- Make copy of yt-local files using git -----------
 
-if os.path.exists('./youtube-local'):
+if os.path.exists('./yt-local'):
     log('Removing old release')
-    shutil.rmtree('./youtube-local')
+    shutil.rmtree('./yt-local')
 
 # Export git repository - this will ensure .git and things in gitignore won't
 # be included. Git only supports exporting archive formats, not into
-# directories, so pipe into 7z to put it into .\youtube-local (not to be
+# directories, so pipe into 7z to put it into .\yt-local (not to be
 # confused with working directory. I'm calling it the same thing so it will
 # have that name when extracted from the final release zip archive)
-log('Making copy of youtube-local files')
-check(os.system('git archive --format tar master | 7z x -si -ttar -oyoutube-local'))
+log('Making copy of yt-local files')
+check(os.system('git archive --format tar master | 7z x -si -ttar -oyt-local'))
 
-if len(os.listdir('./youtube-local')) == 0:
-    raise Exception('Failed to copy youtube-local files')
+if len(os.listdir('./yt-local')) == 0:
+    raise Exception('Failed to copy yt-local files')
 
 
 # ----------- Generate embedded python distribution -----------
@@ -176,7 +176,7 @@ with open(r'./python/path_fixes.pth', 'w', encoding='utf-8') as f:
 
 '''# python3x._pth file tells the python executable where to look for files
 #  Need to add the directory where packages are installed,
-# and the parent directory (which is where the youtube-local files are)
+# and the parent directory (which is where the yt-local files are)
 major_release = latest_version.split('.')[1]
 with open('./python/python3' + major_release + '._pth', 'a', encoding='utf-8') as f:
     f.write('.\\Lib\\site-packages\n')
@@ -216,15 +216,15 @@ log('Finished generating python distribution')
 
 # ----------- Copy generated distribution into release folder -----------
 log('Copying python distribution into release folder')
-shutil.copytree(r'./python', r'./youtube-local/python')
+shutil.copytree(r'./python', r'./yt-local/python')
 
 # ----------- Create release zip -----------
-output_filename = 'youtube-local-' + release_tag + '-windows.zip'
+output_filename = 'yt-local-' + release_tag + '-windows.zip'
 if os.path.exists('./' + output_filename):
     log('Removing previous zipped release')
     os.remove('./' + output_filename)
 log('Zipping release')
-check(os.system(r'7z -mx=9 a ' + output_filename + ' ./youtube-local'))
+check(os.system(r'7z -mx=9 a ' + output_filename + ' ./yt-local'))
 
 print('\n')
 log('Finished')

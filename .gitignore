@@ -4,7 +4,7 @@ debug/
 data/
 python/
 release/
-youtube-local/
+yt-local/
 banned_addresses.txt
 settings.txt
 get-pip.py
