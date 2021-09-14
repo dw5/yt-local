@@ -39,7 +39,7 @@ SETTINGS_INFO = collections.OrderedDict([
 
     ('tor_port', {
         'type': int,
-        'default': 9150,
+        'default': 9050,
         'comment': '',
         'category': 'network',
     }),
@@ -53,7 +53,7 @@ SETTINGS_INFO = collections.OrderedDict([
 
     ('port_number', {
         'type': int,
-        'default': 8080,
+        'default': 9010,
         'comment': '',
         'category': 'network',
     }),
