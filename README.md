@@ -144,6 +144,12 @@ Pull requests and issues are welcome
 
 For coding guidelines and an overview of the software architecture, see the [HACKING.md](docs/HACKING.md) file.
 
+## Public instances
+
+yt-local is not made to work in public mode, however there is an instance of yt-local in public mode but with less features
+
+- <https://yt.conocimientoslibres.ga>
+
 ## License
 
 This project is licensed under the GNU Affero General Public License v3 (GNU AGPLv3) or any later version.
