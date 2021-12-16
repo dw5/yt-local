@@ -1,10 +1,10 @@
 const video = document.getElementById('js-video-player');
 
 function changeQuality(selection) {
-    var currentVideoTime = video.currentTime;
-    var videoPaused = video.paused;
-    var videoSpeed = video.playbackRate;
-    var srcInfo;
+    let currentVideoTime = video.currentTime;
+    let videoPaused = video.paused;
+    let videoSpeed = video.playbackRate;
+    let srcInfo;
     if (avMerge)
         avMerge.close();
     if (selection.type == 'uni'){
@@ -22,9 +22,9 @@ function changeQuality(selection) {
 }
 
 // Initialize av-merge
-var avMerge;
+let avMerge;
 if (data.using_pair_sources) {
-    var srcPair = data['pair_sources'][data['pair_idx']];
+    let srcPair = data['pair_sources'][data['pair_idx']];
     // Do it dynamically rather than as the default in jinja
     // in case javascript is disabled
     avMerge = new AVMerge(video, srcPair, 0);
@@ -42,10 +42,10 @@ if (qs) {
 if (data.time_start != 0 && video) {video.currentTime = data.time_start};
 
 // External video speed control
-var speedInput = document.getElementById('speed-control');
+let speedInput = document.getElementById('speed-control');
 speedInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-        var speed = parseFloat(speedInput.value);
+        let speed = parseFloat(speedInput.value);
         if(!isNaN(speed)){
             video.playbackRate = speed;
         }
@@ -61,7 +61,7 @@ if (data.playlist && data.playlist['id'] !== null) {
     // IntersectionObserver isn't supported in pre-quantum
     // firefox versions, but the alternative of making it
     // manually is a performance drain, so oh well
-    var observer = new IntersectionObserver(lazyLoad, {
+    let observer = new IntersectionObserver(lazyLoad, {
 
       // where in relation to the edge of the viewport, we are observing
       rootMargin: "100px",
@@ -86,7 +86,7 @@ if (data.playlist && data.playlist['id'] !== null) {
     };
 
     // Tell our observer to observe all img elements with a "lazy" class
-    var lazyImages = document.querySelectorAll('img.lazy');
+    let lazyImages = document.querySelectorAll('img.lazy');
     lazyImages.forEach(img => {
       observer.observe(img);
     });

@@ -1,9 +1,9 @@
 function onClickReplies(e) {
-  var details = e.target.parentElement;
+  let details = e.target.parentElement;
   // e.preventDefault();
   console.log("loading replies ..");
   doXhr(details.getAttribute("data-src") + "&slim=1", (html) => {
-    var div = details.querySelector(".comment_page");
+    let div = details.querySelector(".comment_page");
     div.innerHTML = html;
   });
   details.removeEventListener('click', onClickReplies);

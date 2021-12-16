@@ -16,10 +16,10 @@
 
   let qualityOptions = [];
   let qualityDefault;
-  for (var src of data['uni_sources']) {
+  for (let src of data['uni_sources']) {
     qualityOptions.push(src.quality_string)
   }
-  for (var src of data['pair_sources']) {
+  for (let src of data['pair_sources']) {
     qualityOptions.push(src.quality_string)
   }
   if (data['using_pair_sources'])
@@ -100,14 +100,14 @@
       onChange: function(quality) {
         if (quality == 'None') {return;}
         if (quality.includes('(integrated)')) {
-          for (var i=0; i < data['uni_sources'].length; i++) {
+          for (let i=0; i < data['uni_sources'].length; i++) {
             if (data['uni_sources'][i].quality_string == quality) {
               changeQuality({'type': 'uni', 'index': i});
               return;
             }
           }
         } else {
-          for (var i=0; i < data['pair_sources'].length; i++) {
+          for (let i=0; i < data['pair_sources'].length; i++) {
             if (data['pair_sources'][i].quality_string == quality) {
               changeQuality({'type': 'pair', 'index': i});
               return;

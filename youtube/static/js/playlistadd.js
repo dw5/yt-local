@@ -37,7 +37,7 @@
     }
     // https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript
     function sendData(event){
-        var clicked_button = document.activeElement;
+        let clicked_button = document.activeElement;
         if(clicked_button === null || clicked_button.getAttribute('type') !== 'submit' || clicked_button.parentElement != event.target){
             console.log('ERROR: clicked_button not valid');
             return;
@@ -46,8 +46,8 @@
             return;     // video(s) are being removed from playlist, just let it refresh the page
         }
         event.preventDefault();
-        var XHR = new XMLHttpRequest();
-        var FD = new FormData(playlistAddForm);
+        let XHR = new XMLHttpRequest();
+        let FD = new FormData(playlistAddForm);
 
         if(FD.getAll('video_info_list').length === 0){
             displayMessage('Error: No videos selected', true);
