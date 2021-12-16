@@ -388,7 +388,7 @@ Stream.prototype.getSegmentIdx = function(videoTime) {
         }
         index = index + increment;
     }
-    this.reportError('Could not find segment index for time', videoTime);
+    this.reportInfo('Could not find segment index for time', videoTime);
     return 0;
 }
 Stream.prototype.checkBuffer = async function() {
@@ -570,6 +570,9 @@ function addEvent(obj, eventName, func) {
     return new RegisteredEvent(obj, eventName, func);
 }
 
+function reportInfo(...args){
+    console.info(...args);
+}
 function reportWarning(...args){
     console.warn(...args);
 }
