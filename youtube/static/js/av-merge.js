@@ -518,6 +518,9 @@ Stream.prototype.reportWarning = function(...args) {
 Stream.prototype.reportError = function(...args) {
     reportError(String(this.streamType) + ':', ...args);
 }
+Stream.prototype.reportInfo = function(...args) {
+    reportInfo(String(this.streamType) + ':', ...args);
+}
 
 
 // Utility functions
