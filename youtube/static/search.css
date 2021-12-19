@@ -297,6 +297,12 @@ hr {
     cursor: pointer;
 }
 
+.item-video address {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .item-video.channel-item .thumbnail.channel {
     display: flex;
     justify-content: center;
