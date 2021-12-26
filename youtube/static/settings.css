@@ -153,6 +153,11 @@ label[for=options-toggle-cbox] {
     padding: 1rem;
 }
 
+.settings-form > h2 {
+    border-bottom: 2px solid var(--border-bg);
+    padding-bottom: 0.5rem;
+}
+
 .settings-list {
     display: grid;
     grid-row-gap: 1rem;
@@ -163,7 +168,6 @@ label[for=options-toggle-cbox] {
 .setting-item {
     display: grid;
     grid-template-columns: auto auto;
-    background-color: var(--secondary-focus);
     align-items: center;
     padding: 5px;
 }
