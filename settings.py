@@ -168,17 +168,13 @@ For security reasons, enabling this is not recommended.''',
         'category': 'playback',
     }),
 
-    ('codec_rank_h264', {
+    ('codec_rank_av1', {
         'type': int,
         'default': 1,
-        'label': 'H.264 Codec Ranking',
+        'label': 'AV1 Codec Ranking',
         'comment': '',
         'options': [(1, '#1'), (2, '#2'), (3, '#3')],
         'category': 'playback',
-        'description': (
-            'Which video codecs to prefer. Codecs given the same '
-            'ranking will use smaller file size as a tiebreaker.'
-        )
     }),
 
     ('codec_rank_vp', {
@@ -190,13 +186,17 @@ For security reasons, enabling this is not recommended.''',
         'category': 'playback',
     }),
 
-    ('codec_rank_av1', {
+    ('codec_rank_h264', {
         'type': int,
         'default': 3,
-        'label': 'AV1 Codec Ranking',
+        'label': 'H.264 Codec Ranking',
         'comment': '',
         'options': [(1, '#1'), (2, '#2'), (3, '#3')],
         'category': 'playback',
+        'description': (
+            'Which video codecs to prefer. Codecs given the same '
+            'ranking will use smaller file size as a tiebreaker.'
+        )
     }),
 
     ('prefer_uni_sources', {
