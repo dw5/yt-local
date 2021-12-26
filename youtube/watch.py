@@ -694,7 +694,6 @@ def get_watch_page(video_id=None):
         time_published_utc=time_utc_isoformat(info['time_published']),
         view_count    = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("view_count", None)),
         like_count    = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("like_count", None)),
-        dislike_count = (lambda x: '{:,}'.format(x) if x is not None else "")(info.get("dislike_count", None)),
         download_formats        = download_formats,
         other_downloads         = other_downloads,
         video_info              = json.dumps(video_info),

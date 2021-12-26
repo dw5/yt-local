@@ -135,7 +135,6 @@ def _extract_from_video_information_renderer(renderer_content):
 def _extract_likes_dislikes(renderer_content):
     info = {
         'like_count': None,
-        'dislike_count': None,
     }
     for button in renderer_content.get('buttons', ()):
         button_renderer = button.get('slimMetadataToggleButtonRenderer', {})
@@ -157,8 +156,6 @@ def _extract_likes_dislikes(renderer_content):
 
         if 'isLike' in button_renderer:
             info['like_count'] = count
-        elif 'isDislike' in button_renderer:
-            info['dislike_count'] = count
     return info
 
 def _extract_from_owner_renderer(renderer_content):
@@ -353,10 +350,8 @@ def _extract_watch_info_desktop(top_level):
     likes_dislikes = deep_get(video_info, 'sentimentBar', 'sentimentBarRenderer', 'tooltip', default='').split('/')
     if len(likes_dislikes) == 2:
         info['like_count'] = extract_int(likes_dislikes[0])
-        info['dislike_count'] = extract_int(likes_dislikes[1])
     else:
         info['like_count'] = None
-        info['dislike_count'] = None
 
     info['title'] = extract_str(video_info.get('title', None))
     info['author'] = extract_str(deep_get(video_info, 'owner', 'videoOwnerRenderer', 'title'))
