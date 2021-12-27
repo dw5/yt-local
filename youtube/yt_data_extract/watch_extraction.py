@@ -111,10 +111,14 @@ _formats = {
     '_rtmp': {'protocol': 'rtmp'},
 
     # av01 video only formats sometimes served with "unknown" codecs
-    '394': {'vcodec': 'av01.0.05M.08'},
-    '395': {'vcodec': 'av01.0.05M.08'},
-    '396': {'vcodec': 'av01.0.05M.08'},
-    '397': {'vcodec': 'av01.0.05M.08'},
+    '394': {'ext': 'mp4', 'height': 144, 'format_note': 'DASH video', 'vcodec': 'av01.0.00M.08'},
+    '395': {'ext': 'mp4', 'height': 240, 'format_note': 'DASH video', 'vcodec': 'av01.0.00M.08'},
+    '396': {'ext': 'mp4', 'height': 360, 'format_note': 'DASH video', 'vcodec': 'av01.0.01M.08'},
+    '397': {'ext': 'mp4', 'height': 480, 'format_note': 'DASH video', 'vcodec': 'av01.0.04M.08'},
+    '398': {'ext': 'mp4', 'height': 720, 'format_note': 'DASH video', 'vcodec': 'av01.0.05M.08'},
+    '399': {'ext': 'mp4', 'height': 1080, 'format_note': 'DASH video', 'vcodec': 'av01.0.08M.08'},
+    '400': {'ext': 'mp4', 'height': 1440, 'format_note': 'DASH video', 'vcodec': 'av01.0.12M.08'},
+    '401': {'ext': 'mp4', 'height': 2160, 'format_note': 'DASH video', 'vcodec': 'av01.0.12M.08'},
 }
 
 
