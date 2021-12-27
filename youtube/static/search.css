@@ -102,7 +102,6 @@ header {
         "dropdown-label"
         "dropdown-content";
     grid-area: dropdown;
-    z-index: 1;
 }
 .dropdown-label {
     grid-area: dropdown-label;
@@ -202,8 +201,10 @@ label[for=options-toggle-cbox] {
 }
 
 #options-toggle-cbox:checked ~ .dropdown-content {
-    display: inline-grid;
+    display: block;
     white-space: nowrap;
+    background: var(--secondary-background);
+    padding: 0.5rem 1rem;
 }
 /*- ----------- End Menu Mobile sin JS ------------- */
 
@@ -464,7 +465,7 @@ hr {
     .dropdown {
         display: grid;
         grid-gap: 1px;
-        grid-template-columns: minmax(50px, 100px);
+        grid-template-columns: minmax(50px, 120px);
         grid-template-areas:
             "dropdown-label"
             "dropdown-content";
@@ -474,7 +475,12 @@ hr {
         z-index: 1;
         position: absolute;
     }
-
+    #options-toggle-cbox:checked ~ .dropdown-content {
+        padding: 0rem 3rem 1rem 1rem;
+        width: 100%;
+        max-height: 45vh;
+        overflow-y: scroll;
+    }
     /* playlist */
     .playlist {
         display: grid;
@@ -484,7 +490,7 @@ hr {
         grid-area: playlist;
     }
     .play-clean {
-        grid-template-columns: minmax(50px, 100px);
+        grid-template-columns: minmax(50px, 120px);
     }
     .play-clean > button {
         padding-left: 0px;

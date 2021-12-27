@@ -123,7 +123,6 @@ header {
         "dropdown-label"
         "dropdown-content";
     grid-area: dropdown;
-    z-index: 1;
 }
 .dropdown-label {
     grid-area: dropdown-label;
@@ -221,9 +220,10 @@ label[for=options-toggle-cbox] {
 }
 
 #options-toggle-cbox:checked ~ .dropdown-content {
-    display: inline-grid;
+    display: block;
     white-space: nowrap;
-    padding-left: 1rem;
+    background: var(--secondary-background);
+    padding: 0.5rem 1rem;
 }
 /*- ----------- End Menu Mobile sin JS ------------- */
 
@@ -625,12 +625,15 @@ label[for=options-toggle-cbox] {
             "dropdown-label"
             "dropdown-content";
         grid-area: dropdown;
-
-        background: var(--background);
-        padding-right: 4rem;
-
-        z-index: 1;
         position: absolute;
+        padding-right: 4rem;
+        z-index: 1;
+    }
+    #options-toggle-cbox:checked ~ .dropdown-content {
+        padding: 0rem 3rem 1rem 1rem;
+        width: 100%;
+        max-height: 45vh;
+        overflow-y: scroll;
     }
     .playlist {
         display: grid;

@@ -97,7 +97,6 @@ header {
         "dropdown-label"
         "dropdown-content";
     grid-area: dropdown;
-    z-index: 1;
 }
 .dropdown-label {
     grid-area: dropdown-label;
@@ -137,8 +136,10 @@ label[for=options-toggle-cbox] {
 }
 
 #options-toggle-cbox:checked ~ .dropdown-content {
-    display: inline-grid;
+    display: block;
     white-space: nowrap;
+    background: var(--secondary-background);
+    padding: 0.5rem 1rem;
 }
 /*- ----------- End Menu Mobile sin JS ------------- */
 
@@ -221,15 +222,20 @@ label[for=options-toggle-cbox] {
     .dropdown {
         display: grid;
         grid-gap: 1px;
-        grid-template-columns: minmax(50px, 100px);
+        grid-template-columns: minmax(50px, 120px);
         grid-template-areas:
             "dropdown-label"
             "dropdown-content";
         grid-area: dropdown;
-        z-index: 1;
         position: absolute;
-        background: var(--background);
         padding-right: 4rem;
+        z-index: 1;
+    }
+    #options-toggle-cbox:checked ~ .dropdown-content {
+        padding: 0rem 3rem 1rem 1rem;
+        width: 100%;
+        max-height: 45vh;
+        overflow-y: scroll;
     }
     .main {
         display: grid;
