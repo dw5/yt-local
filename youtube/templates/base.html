@@ -133,7 +133,7 @@
 
             {% if header_playlist_names is defined %}
                 <form class="playlist" id="playlist-edit" action="/youtube.com/edit_playlist" method="post" target="_self">
-                    <input class="play-box" name="playlist_name" id="playlist-name-selection" list="playlist-options" type="search" placeholder="I added your playlist...">
+                    <input class="play-box" name="playlist_name" id="playlist-name-selection" list="playlist-options" type="search" placeholder="Add name of your playlist...">
                     <datalist class="play-hidden" id="playlist-options">
                         {% for playlist_name in header_playlist_names %}
                             <option value="{{ playlist_name }}">{{ playlist_name }}</option>
