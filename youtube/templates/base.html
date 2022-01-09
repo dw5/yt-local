@@ -35,7 +35,7 @@
             </nav>
             <form class="form" id="site-search" action="/youtube.com/results">
                 <input type="search" name="search_query" class="search-box" value="{{ search_box_value }}"
-                       {{ "autofocus" if request.path == "/" else "" }} required placeholder="Type to search...">
+                       {{ "autofocus" if (request.path in ("/", "/results") or error_message) else "" }} required placeholder="Type to search...">
                 <button type="submit" value="Search" class="search-button">Search</button>
                 <!-- options -->
                 <div class="dropdown">
