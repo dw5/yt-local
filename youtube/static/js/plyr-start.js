@@ -117,8 +117,8 @@
       },
     },
     previewThumbnails: {
-        enabled: true,
-        src: [storyboard_url],
+      enabled: storyboard_url != null,
+      src: [storyboard_url],
     },
     settings: ['captions', 'quality', 'speed', 'loop'],
   });
