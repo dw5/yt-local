@@ -37,11 +37,21 @@
                 </a>
                 <h4 class="title"><a href="{{ info['url'] }}" title="{{ info['title'] }}">{{ info['title'] }}</a></h4>
 
+                {% set author_description = info['author'] %}
+                {% set AUTHOR_DESC_LENGTH = 35 %}
+                {% if author_description|length >= AUTHOR_DESC_LENGTH %}
+                    {% set author_description = author_description[:AUTHOR_DESC_LENGTH].split(' ')[:-1]|join(' ') %}
+                    {% if not author_description[-1] in ['.', '?', ':', '!'] %}
+                        {% set author_more = author_description + '…' %}
+                        {% set author_description = author_more|replace('"','') %}
+                    {% endif %}
+                {% endif %}
+
                 {% if include_author %}
                     {% if info.get('author_url') %}
-                        <address title="{{ info['author'] }}"><b><a href="{{ info['author_url'] }}">{{ info['author'] }}</a></b></address>
+                        <address title="{{ info['author'] }}"><b><a href="{{ info['author_url'] }}">{{ author_description }}</a></b></address>
                     {% else %}
-                        <address title="{{ info['author'] }}"><b>{{ info['author'] }}</b></address>
+                        <address title="{{ info['author'] }}"><b>{{ author_description }}</b></address>
                     {% endif %}
                 {% endif %}
 
