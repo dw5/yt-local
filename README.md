@@ -27,7 +27,7 @@ The YouTube API is not used, so no keys or anything are needed. It uses the same
 * Easily download videos or their audio
 * No ads
 * View comments
-* Javascript not required
+* JavaScript not required
 * Theater and non-theater mode
 * Subscriptions that are independent from YouTube
   * Can import subscriptions from YouTube
