@@ -26,8 +26,17 @@ function onKeyDown(e) {
     }
     else if (c == "f") {
         e.preventDefault();
-        if (document.fullscreenElement && document.fullscreenElement.nodeName == 'VIDEO') {document.exitFullscreen();}
-        else {v.requestFullscreen()};
+        if (data.settings.video_player == 1) {
+            player.fullscreen.toggle()
+        }
+        else {
+            if (document.fullscreen) {
+                document.exitFullscreen()
+            }
+            else {
+                v.requestFullscreen()
+            }
+        }
     }
     else if (c == "m") {
         if (v.muted == false) {v.muted = true;}
