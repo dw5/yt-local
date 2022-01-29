@@ -26,7 +26,7 @@ function onKeyDown(e) {
     }
     else if (c == "f") {
         e.preventDefault();
-        if (data.settings.video_player == 1) {
+        if (data.settings.use_video_player == 2) {
             player.fullscreen.toggle()
         }
         else {
