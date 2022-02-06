@@ -148,7 +148,7 @@ For coding guidelines and an overview of the software architecture, see the [HAC
 
 yt-local is not made to work in public mode, however there is an instance of yt-local in public mode but with less features
 
-- <https://yt-local.ga>
+- <https://fast-gorge-89206.herokuapp.com>
 
 ## License
 
