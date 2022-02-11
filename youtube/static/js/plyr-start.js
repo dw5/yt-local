@@ -87,6 +87,8 @@
       'volume',
       'captions',
       'settings',
+      'pip',
+      'airplay',
       'fullscreen'
     ],
     iconUrl: "/youtube.com/static/modules/plyr/plyr.svg",
@@ -121,5 +123,8 @@
       src: [storyboard_url],
     },
     settings: ['captions', 'quality', 'speed', 'loop'],
+    tooltips: {
+      controls: true,
+    },
   });
 }());
