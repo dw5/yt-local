@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -55,6 +55,11 @@
              // @license-end
             </script>
         {% endif %}
+        <script>
+         // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3-or-Later
+         let storyboard_url = {{ storyboard_url | tojson }};
+         // @license-end
+        </script>
         {% if settings.use_video_player == 2 %}
             <!-- plyr -->
             <script src="/youtube.com/static/modules/plyr/plyr.min.js"
