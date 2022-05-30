@@ -238,6 +238,9 @@ label[for=options-toggle-cbox] {
         "sc-video"
         "sc-info";
 }
+figure.sc-video {
+    margin: 1rem 0px;
+}
 .sc-video { grid-area: sc-video; }
 .sc-info {
     display: grid;
