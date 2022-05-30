@@ -1,4 +1,4 @@
-[![builds.sr.ht status](https://builds.sr.ht/~heckyel/yt-local/commits/.build.yml.svg)](https://builds.sr.ht/~heckyel/yt-local/commits/.build.yml?)
+[![Build Status](https://drone.hgit.ga/api/badges/heckyel/yt-local/status.svg)](https://drone.hgit.ga/heckyel/yt-local)
 
 # yt-local
 
