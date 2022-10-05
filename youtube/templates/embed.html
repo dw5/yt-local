@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; media-src 'self' https://*.googlevideo.com; {{ "img-src 'self' https://*.googleusercontent.com https://*.ggpht.com https://*.ytimg.com;" if not settings.proxy_images else "" }}"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; media-src 'self' https://*.googlevideo.com; {{ "img-src 'self' https://*.googleusercontent.com https://*.ggpht.com https://*.ytimg.com;" if not settings.proxy_images else "" }}">
         <title>{{ title }}</title>
-        <link href="/youtube.com/static/favicon.ico" type="image/x-icon" rel="icon"/>
+        <link href="/youtube.com/static/favicon.ico" type="image/x-icon" rel="icon">
         {% if settings.use_video_player == 2 %}
             <!-- plyr -->
-            <link href="/youtube.com/static/modules/plyr/plyr.css" rel="stylesheet"/>
+            <link href="/youtube.com/static/modules/plyr/plyr.css" rel="stylesheet">
             <!--/ plyr -->
         {% endif %}
         <style>
