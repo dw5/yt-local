@@ -56,7 +56,6 @@ The YouTube API is not used, so no keys or anything are needed. It uses the same
 - [ ] Import youtube playlist into a local playlist
 - [ ] Rearrange items of local playlist
 - [x] Video qualities other than 360p and 720p by muxing video and audio
-- [ ] Corrected .m4a downloads
 - [x] Indicate if comments are disabled
 - [x] Indicate how many comments a video has
 - [ ] Featured channels page
