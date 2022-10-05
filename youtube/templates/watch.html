@@ -167,7 +167,7 @@
                     <div class="playlist-header">
                         <a href="{{ playlist['url'] }}" title="{{ playlist['title'] }}"><h3>{{ playlist['title'] }}</h3></a>
                         <ul class="playlist-metadata">
-                            <li><label for="playlist-autoplay-toggle">Autoplay: </label><input type="checkbox" class="autoplay-toggle"></li>
+                            <li><label for="playlist-autoplay-toggle">Autoplay: </label><input id="playlist-autoplay-toggle" type="checkbox" class="autoplay-toggle"></li>
                             {% if playlist['current_index'] is none %}
                                 <li>[Error!]/{{ playlist['video_count'] }}</li>
                             {% else %}
@@ -190,7 +190,7 @@
                     </nav>
                 </div>
             {% elif settings.related_videos_mode != 0 %}
-                <div class="related-autoplay"><label for="related-autoplay-toggle">Autoplay: </label><input type="checkbox" class="autoplay-toggle"></div>
+                <div class="related-autoplay"><label for="related-autoplay-toggle">Autoplay: </label><input id="related-autoplay-toggle" type="checkbox" class="autoplay-toggle"></div>
             {% endif %}
 
             {% if subtitle_sources %}
