@@ -93,11 +93,11 @@ Firstly, if you wish to run this in portable mode, create the empty file "settin
 
 To run the program on windows, open `run.bat`. On GNU+Linux/MacOS, run `python3 server.py`.
 
+Access youtube URLs by prefixing them with `http://localhost:9010/`.
+For instance, `http://localhost:9010/https://www.youtube.com/watch?v=vBgulDeV2RU`
+You can use an addon such as Redirector ([Firefox](https://addons.mozilla.org/en-US/firefox/addon/redirector/)|[Chrome](https://chrome.google.com/webstore/detail/redirector/ocgpenflpmgnfapjedencafcfakcekcd)) to automatically redirect YouTube URLs to yt-local. I use the include pattern `^(https?://(?:[a-zA-Z0-9_-]*\.)?(?:youtube\.com|youtu\.be|youtube-nocookie\.com)/.*)` and redirect pattern `http://localhost:9010/$1` (Make sure you're using regular expression mode).
 
-Access youtube URLs by prefixing them with `http://localhost:9010/`, For instance, `http://localhost:9010/https://www.youtube.com/watch?v=vBgulDeV2RU`
-You can use an addon such as Redirector ([Firefox](https://addons.mozilla.org/en-US/firefox/addon/redirector/)|[Chrome](https://chrome.google.com/webstore/detail/redirector/ocgpenflpmgnfapjedencafcfakcekcd)) to automatically redirect YouTube URLs to yt-local. I use the include pattern `^(https?://(?:[a-zA-Z0-9_-]*\.)?(?:youtube\.com|youtu\.be|youtube-nocookie\.com)/.*)` and the redirect pattern `http://localhost:9010/$1` (Make sure you're using regular expression mode).
-
-If you want embeds on the web to also redirect to yt-local, make sure "Iframes" is checked under advanced options in your redirector rule. Check test `http://localhost:9010/youtube.com/embed/vBgulDeV2RU`
+If you want embeds on web to also redirect to yt-local, make sure "Iframes" is checked under advanced options in your redirector rule. Check test `http://localhost:9010/youtube.com/embed/vBgulDeV2RU`
 
 yt-local can be added as a search engine in firefox to make searching more convenient. See [here](https://support.mozilla.org/en-US/kb/add-or-remove-search-engine-firefox) for information on firefox search plugins.
 
@@ -113,7 +113,7 @@ If you don't want to waste system resources leaving the Tor Browser open in addi
 
 For Windows, to make standalone Tor run at startup, press Windows Key + R and type `shell:startup` to open the Startup folder. Create a new shortcut there. For the command of the shortcut, enter `"C:\[path-to-Tor-Browser-directory]\Tor\tor.exe" SOCKSPort 9150 ControlPort 9151`. You can then launch this shortcut to start it. Alternatively, if something isn't working, to see what's wrong, open `cmd.exe` and go to the directory `C:\[path-to-Tor-Browser-directory]\Tor`. Then run `tor SOCKSPort 9150 ControlPort 9151 | more`. The `more` part at the end is just to make sure any errors are displayed, to fix a bug in Windows cmd where tor doesn't display any output. You can stop tor in the task manager.
 
-For Debian/Ubuntu, you can `sudo apt install tor` to install the command line version of Tor, and then run `sudo systemctl start tor` to run it as a background service that will get started during boot as well. However, Tor on the command line uses the port 9050 by default (rather than the 9150 used by the Tor Browser). So you will need to change `Tor port` to 9050 and `Tor control port` to 9051 in the yt-local settings page. Additionally, you will need to enable the Tor control port by uncommenting the line `ControlPort 9051`, and setting `CookieAuthentication` to 0 in `/etc/tor/torrc`. If no Tor package is available for your distro, you can configure the `tor` binary located at `./Browser/TorBrowser/Tor/tor` inside the Tor Browser installation location to run at start time, or create a service to do it.
+For Debian/Ubuntu, you can `sudo apt install tor` to install the command line version of Tor, and then run `sudo systemctl start tor` to run it as a background service that will get started during boot as well. However, Tor on the command line uses the port `9050` by default (rather than the 9150 used by the Tor Browser). So you will need to change `Tor port` to 9050 and `Tor control port` to `9051` in yt-local settings page. Additionally, you will need to enable the Tor control port by uncommenting the line `ControlPort 9051`, and setting `CookieAuthentication` to 0 in `/etc/tor/torrc`. If no Tor package is available for your distro, you can configure the `tor` binary located at `./Browser/TorBrowser/Tor/tor` inside the Tor Browser installation location to run at start time, or create a service to do it.
 
 ### Tor video routing
 
