@@ -13,9 +13,9 @@
                     {% if not setting_info.get('hidden', false) %}
                         <li class="setting-item">
                             {% if 'label' is in(setting_info) %}
-                                <label for="{{ 'setting_' + setting_name }}">{{ setting_info['label'] }}</label>
+                                <label for="{{ 'setting_' + setting_name }}" {% if 'comment' is in(setting_info) %}title="{{ setting_info['comment'] }}" {% endif %}>{{ setting_info['label'] }}</label>
                             {% else %}
-                                <label for="{{ 'setting_' + setting_name }}">{{ setting_name.replace('_', ' ')|capitalize }}</label>
+                                <label for="{{ 'setting_' + setting_name }}" {% if 'comment' is in(setting_info) %}title="{{ setting_info['comment'] }}" {% endif %}>{{ setting_name.replace('_', ' ')|capitalize }}</label>
                             {% endif %}
 
                             {% if setting_info['type'].__name__ == 'bool' %}

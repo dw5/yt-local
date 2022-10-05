@@ -97,6 +97,7 @@
 
             <span class="v-direct-link"><a href="https://youtu.be/{{ video_id }}" rel="noopener noreferrer" target="_blank">Direct Link</a></span>
 
+            {% if settings.use_video_download != 0 %}
             <details class="v-download">
                 <summary class="download-dropdown-label">Download</summary>
                 <ul class="download-dropdown-content">
@@ -116,6 +117,9 @@
                     {% endfor %}
                 </ul>
             </details>
+            {% else %}
+            <span class="v-download"></span>
+            {% endif %}
             <span class="v-description">{{ common_elements.text_runs(description)|escape|urlize|timestamps|safe }}</span>
 
             <div class="v-music-list">
