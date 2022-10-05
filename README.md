@@ -24,7 +24,7 @@ The YouTube API is not used, so no keys or anything are needed. It uses the same
 * Local playlists: These solve the two problems with creating playlists on YouTube: (1) they're datamined and (2) videos frequently get deleted by YouTube and lost from the playlist, making it very difficult to find a reupload as the title of the deleted video is not displayed.
 * Themes: Light, Gray, and Dark
 * Subtitles
-* Easily download videos or their audio
+* Easily download videos or their audio. (Disable by default)
 * No ads
 * View comments
 * JavaScript not required
